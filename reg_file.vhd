@@ -26,7 +26,8 @@ architecture behavior of reg_file is
 		type reg_type is array (0 to 31) of dlx_word;
 		variable registers	: reg_type;
 begin
-	file_read_write: process(readnotwrite, clock, reg_number, data_in, data_out) is
+	-- Process takes input variables from our defined entity above --
+	file_read_write: process(readnotwrite, clock, reg_number, data_in) is
 	begin 
 		-- Start process
 		if (clock = '1') then
