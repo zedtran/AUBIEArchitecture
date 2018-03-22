@@ -1,0 +1,108 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Modeltech_pe_edu_10.4a/examples
+Pbv_arithmetic
+w1521691636
+Z0 dC:/Modeltech_pe_edu_10.4a/projects
+8C:/Modeltech_pe_edu_10.4a/projects/bva.vhd
+FC:/Modeltech_pe_edu_10.4a/projects/bva.vhd
+l0
+L15
+V;=2SeGQPb=ziI`4efIfkn0
+!s100 DK;Y`J0lJAh`j:XUgQ7B<1
+Z1 OP;C;10.4a;61
+32
+b1
+!s110 1521697760
+!i10b 1
+Z2 !s108 1521697760.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/bva.vhd|
+!s107 C:/Modeltech_pe_edu_10.4a/projects/bva.vhd|
+!i113 1
+Z3 o-work work -2002 -explicit -O0
+Z4 tExplicit 1
+Bbody
+Z5 DPx4 work 13 bv_arithmetic 0 22 ;=2SeGQPb=ziI`4efIfkn0
+w1521691631
+8C:/Modeltech_pe_edu_10.4a/projects/bva-b.vhd
+FC:/Modeltech_pe_edu_10.4a/projects/bva-b.vhd
+l0
+L1
+VLPF@=`8X>]9I@:nc^2mYE3
+!s100 ;^d^hPQojBY3:39_Lf`ZP1
+R1
+32
+Z6 !s110 1521697761
+!i10b 1
+R2
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/bva-b.vhd|
+!s107 C:/Modeltech_pe_edu_10.4a/projects/bva-b.vhd|
+!i113 1
+R3
+R4
+nbody
+Pdlx_types
+w1521691621
+R0
+8C:/Modeltech_pe_edu_10.4a/projects/dlx-types.vhd
+FC:/Modeltech_pe_edu_10.4a/projects/dlx-types.vhd
+l0
+L2
+V@MWS?C@zLBViQibDEWe=J0
+!s100 97lSCM@>azhK1Sj:adP1Z3
+R1
+32
+!s110 1521697759
+!i10b 1
+!s108 1521697759.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/dlx-types.vhd|
+!s107 C:/Modeltech_pe_edu_10.4a/projects/dlx-types.vhd|
+!i113 1
+R3
+R4
+Ereg_file
+Z7 w1521697585
+Z8 DPx4 work 9 dlx_types 0 22 @MWS?C@zLBViQibDEWe=J0
+R5
+R0
+Z9 8C:/Modeltech_pe_edu_10.4a/projects/reg_file.vhd
+Z10 FC:/Modeltech_pe_edu_10.4a/projects/reg_file.vhd
+l0
+L5
+V]bh`hY29WAL[G;6VPMDG61
+!s100 P6OE<_AU44Mm:9<Rka8JS0
+R1
+32
+R6
+!i10b 1
+Z11 !s108 1521697761.000000
+Z12 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/reg_file.vhd|
+Z13 !s107 C:/Modeltech_pe_edu_10.4a/projects/reg_file.vhd|
+!i113 1
+R3
+R4
+Abehavior
+R8
+R5
+DEx4 work 8 reg_file 0 22 ]bh`hY29WAL[G;6VPMDG61
+l16
+L15
+Vna1WElnQIbiZAKJXlSBln1
+!s100 gX6PSdAg0KiM@E@9Z2anB0
+R1
+32
+R6
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R3
+R4
