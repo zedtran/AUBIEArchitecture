@@ -7,11 +7,13 @@ entity reg_file is
 	generic(
 		prop_delay		: Time:= 15 ns
 	);
-	port(
-		readnotwrite, clock	: in bit;
-		reg_number		: in register_index		
+	-- Signals
+	port(	
+		clock			: in bit;
+		readnotwrite		: in bit;
+		reg_number		: in register_index;		
 		data_in 		: in dlx_word;  
-		data_out		: out dlx_word;
+		data_out		: out dlx_word
 	);
 end entity reg_file; -- END ENTITY
 -- 32-bit Datapath -> 8 hex digits instead of 4 (shows as 0x signal in sim)
@@ -20,6 +22,7 @@ end entity reg_file; -- END ENTITY
 
 -- BEGIN Define ARCHITECTURE "reg_file" --
 architecture behavior of reg_file is
+		-- Variables (Storage for our single process)
 		type reg_type is array (0 to 31) of dlx_word;
 		variable registers	: reg_type;
 begin
