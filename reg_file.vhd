@@ -68,6 +68,3 @@ begin
 		end if;
 	end process reg_file_process;
 end architecture behavior; 
-
-entity reg_file_tb is
-end reg_file_tb;
