@@ -6,12 +6,7 @@ entity reg_file_tb is
 end reg_file_tb;
 
 architecture test of reg_file_tb is
-	signal clock_SIG         : bit := '0';
-	signal readnotwrite_SIG  : bit := '0';
-	signal reg_num_SIG   	 : register_index := "00000";
-	signal data_in_SIG       : dlx_word := x"00000000";
-	signal data_out_SIG      : dlx_word;
-	
+
 	component reg_file is
 		generic ( prop_delay: time:= 15 ns );
 		port (
@@ -22,72 +17,49 @@ architecture test of reg_file_tb is
 			data_out        : out dlx_word
 		);
     	end component reg_file;
-  
+
+	-- Inputs --
+	signal clock         : bit := '0';
+	signal readnotwrite  : bit := '0';
+	signal reg_number    : register_index := "00000";
+	signal data_in       : dlx_word := x"00000000";
+	
+	-- Outputs --	
+	signal data_out      : dlx_word;
+
 	-- Time interval between signal changes
-	constant TIME_DELTA : time := 20 ns;
+	constant TIME_DELTA 	: time := 20 ns;
   
-	-- Used for converting our bits to string format --
+	-- Used for converting a single binary bit to string format for assertion output --
 	type T_bit_map is array(bit) of character;
 	constant C_BIT_MAP: T_bit_map := ('0', '1');
 
+	type reg_type is array (0 to 31) of dlx_word;
+
+
 begin
 	-- Instantiate Unit Under Test (UUT)
-	reg_file_INST : reg_file
+	uut: reg_file 
 		port map (
-			clock          => 	clock_SIG,
-			readnotwrite   => 	readnotwrite_SIG,
-			reg_number     => 	reg_num_SIG,
-			data_in        => 	data_in_SIG,
-			data_out       => 	data_out_SIG
+			clock          => 	clock,
+			readnotwrite   => 	readnotwrite,
+			reg_number     => 	reg_number,
+			data_in        => 	data_in,
+			data_out       => 	data_out
 		);
+		
+		clock		 <= '1', '0' after 140 ns;
+		readnotwrite 	 <= '0', '1' after 30 ns, '0' after 60 ns, '1' after 90 ns, '0' after 120 ns, '0' after 170 ns;
+		reg_number 	 <= "00000", "00001" after 30 ns, "00010" after 60 ns, "00011" after 90 ns, "00100" after 120 ns, "00101" after 170 ns;
+		data_in		 <= x"11111111", x"22222222" after 30 ns, x"33333333" after 60 ns, x"44444444" after 90 ns, x"55555555" after 120 ns, x"00000000" after 170 ns;
 
 	  -- Test
-	  process is
+	  stimulus_process: process
+
 	  begin
-	    -- clock = 0, readnotwrite = 0 --
-	    -- register index 0
-	    -- data_in: 0001 0001 0001 0001 0001 0001 0001 0001 --
-	    clock_SIG         <= 	'0';
-	    readnotwrite_SIG  <= 	'0';
-	    reg_num_SIG       <= 	"00000";
-	    data_in_SIG       <= 	x"11111111";
-	    wait for TIME_DELTA;
-	    assert (data_in_SIG = x"11111111" and data_out_SIG = x"00000000")
-	    report "CASE 1: Unexpected signal change for data_in and/or data_out" severity failure;
-	    
-	    -- clock = 0, readnotwrite = 1 --
-	    -- register index 1
-	    -- data_in: 0010 0010 0010 0010 0010 1101 0010 0010
-	    clock_SIG         <= 	'0';
-	    readnotwrite_SIG  <= 	'1';
-	    reg_num_SIG       <= 	"00001";
-	    data_in_SIG       <= 	x"22222222";
-	    wait for TIME_DELTA;
-	    assert (data_in_SIG = x"22222222" and data_out_SIG = x"00000000") 
-	    report "CASE 2: Unexpected signal change for data_in and/or data_out" severity failure;
-	    
-	    -- clock = 1, readnotwrite = 0 --
-	    -- register index 2
-	    -- data_in: 0011 0011 0011 0011 00011 0011 0011 0011
-	    clock_SIG         <= 	'1';
-	    readnotwrite_SIG  <= 	'0';
-	    reg_num_SIG       <= 	"00010";
-	    data_in_SIG       <= 	x"33333333";
-	    wait for TIME_DELTA;
-	    assert (data_in_SIG = x"33333333" and data_out_SIG = x"00000000") 
-	    report "CASE 3: Unexpected signal change for data_in and/or data_out" severity failure;
-	    
-	    -- clock = 1, readnotwrite = 1 --
-	    -- register index 3
-	    -- data_in: 0100 0100 0100 0100 0100 0100 0100 0100
-	    clock_SIG         <= 	'1';
-	    readnotwrite_SIG  <= 	'1';
-	    reg_num_SIG       <= 	"00011";
-	    data_in_SIG       <= 	x"44444444";
-	    wait for TIME_DELTA;
-	    assert (data_in_SIG = x"44444444" and data_out_SIG = x"00000000") 
-	    report "CASE 4: Unexpected signal change for data_in and/or data_out" severity failure;
-	
-	    wait; -- Auto Termination   
-  	end process;
+	    	-- Check UUT response --	
+		
+		wait for 150 ns; -- Let all input signals propagate
+	    wait; -- Terminate so we don't continue run -all   
+  	  end process;
 end test;

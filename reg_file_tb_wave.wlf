@@ -1,13 +1,13 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate /reg_file_tb/clock_SIG
-add wave -noupdate /reg_file_tb/readnotwrite_SIG
-add wave -noupdate /reg_file_tb/reg_num_SIG
-add wave -noupdate /reg_file_tb/data_in_SIG
-add wave -noupdate /reg_file_tb/data_out_SIG
+add wave -noupdate /reg_file_tb/clock
+add wave -noupdate /reg_file_tb/readnotwrite
+add wave -noupdate /reg_file_tb/reg_number
+add wave -noupdate /reg_file_tb/data_in
+add wave -noupdate -expand /reg_file_tb/uut/reg_file_process/registers
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ns} 0}
-quietly wave cursor active 1
+quietly wave cursor active 0
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
@@ -22,4 +22,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ns} {120 ns}
+WaveRestoreZoom {0 ns} {64 ns}

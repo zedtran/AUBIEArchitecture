@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "XHTML1-f.dtd">
+<html>
+<head>
+  <title>Project - C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/AUBIE_CPU_PROJ</title>
+  <style type="text/css">
+
+  body {
+    font-family: Georgia, \"Times New Roman\",
+          Times, serif;
+    color: black;
+    background-color: white;
+  }
+
+  h1 {
+    font-family: Helvetica, Geneva, Arial,
+          SunSans-Regular, sans-serif }
+
+  table, th, td {
+    border-width:     0px;
+    border-style:     solid;
+    background-color: white;
+  }
+
+  th {
+    font-weight:      bold;
+    background-color: #80CCCC;
+  }
+
+  th.clickable {
+    cursor:           pointer;
+  }
+
+  td.OddInvisible {
+    width:            12px;
+    border-width:     0;
+    background-color: #EEEEEE;
+  }
+
+  td.EveInvisible {
+    width:            12px;
+    border-width:     0;
+    background-color: #FAFAFA;
+  }
+
+  /* odd parity columns get a
+     darker background color
+     for better readability */
+  td.OddCentBlk, td.OddRighBlk, td.OddLeftBlk,
+  td.OddCentRed, td.OddRighRed, td.OddLeftRed,
+  td.OddCentYel, td.OddRighYel, td.OddLeftYel,
+  td.OddCentGrn, td.OddRighGrn, td.OddLeftGrn
+  {
+    background-color: #EEEEEE;
+  }
+
+  /* odd parity columns get a
+     lighter background color
+     for better readability */
+  td.EveCentBlk, td.EveRighBlk, td.EveLeftBlk,
+  td.EveCentRed, td.EveRighRed, td.EveLeftRed,
+  td.EveCentYel, td.EveRighYel, td.EveLeftYel,
+  td.EveCentGrn, td.EveRighGrn, td.EveLeftGrn
+  {
+    background-color: #FAFAFA;
+  }
+
+  td.OddLeftBlk, td.EveLeftBlk,
+  td.OddLeftRed, td.EveLeftRed,
+  td.OddLeftYel, td.EveLeftYel,
+  td.OddLeftGrn, td.EveLeftGrn
+  {
+    text-align:       left;
+  }
+
+  td.OddCentBlk, td.EveCentBlk,
+  td.OddCentRed, td.EveCentRed,
+  td.OddCentYel, td.EveCentYel,
+  td.OddCentGrn, td.EveCentGrn
+  {
+    text-align:       center;
+  }
+
+  td.OddRighBlk, td.EveRighBlk,
+  td.OddRighRed, td.EveRighRed,
+  td.OddRighYel, td.EveRighYel,
+  td.OddRighGrn, td.EveRighGrn
+  {
+    text-align:       right;
+  }
+
+  td.blk,
+  td.OddLeftBlk, td.EveLeftBlk,
+  td.OddCentBlk, td.EveCentBlk,
+  td.OddRighBlk, td.EveRighBlk
+  {
+    color:            black;
+  }
+
+  td.red,
+  td.OddLeftRed, td.EveLeftRed,
+  td.OddCentRed, td.EveCentRed,
+  td.OddRighRed, td.EveRighRed
+  {
+    color:            red;
+    font-weight:      bold;
+  }
+
+  td.yel,
+  td.OddLeftYel, td.EveLeftYel,
+  td.OddCentYel, td.EveCentYel,
+  td.OddRighYel, td.EveRighYel
+  {
+    color:            #FFBB00;
+    font-weight:      bold;
+  }
+
+  td.grn,
+  td.OddLeftGrn, td.EveLeftGrn,
+  td.OddCentGrn, td.EveCentGrn,
+  td.OddRighGrn, td.EveRighGrn
+  {
+    color:            green;
+    font-weight:      bold;
+  }
+
+  </style>
+</head>
+<table border ="1">
+<h1>Project - C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/AUBIE_CPU_PROJ window</h1>
+<tr>
+  <th class="Eve" colspan=1>Name</th>
+  <th class="Odd">Status</th>
+  <th class="Eve">Type</th>
+  <th class="Odd">Order</th>
+  <th class="Eve">Modified</th>
+</tr>
+<tr>
+  <td class="EveLeftBlk" colspan=1>reg_file_tb.vhd</td>
+  <td class="OddLeftBlk"></td>
+  <td class="EveLeftBlk">VHDL</td>
+  <td class="OddLeftBlk">4</td>
+  <td class="EveLeftBlk">03/23/2018 02:31:23 pm</td>
+</tr>
+<tr>
+  <td class="EveLeftBlk" colspan=1>reg_file.vhd</td>
+  <td class="OddLeftBlk"></td>
+  <td class="EveLeftBlk">VHDL</td>
+  <td class="OddLeftBlk">3</td>
+  <td class="EveLeftBlk">03/23/2018 02:06:21 pm</td>
+</tr>
+<tr>
+  <td class="EveLeftBlk" colspan=1>dlx-types.vhd</td>
+  <td class="OddLeftBlk"></td>
+  <td class="EveLeftBlk">VHDL</td>
+  <td class="OddLeftBlk">2</td>
+  <td class="EveLeftBlk">03/21/2018 09:07:01 pm</td>
+</tr>
+<tr>
+  <td class="EveLeftBlk" colspan=1>bva.vhd</td>
+  <td class="OddLeftBlk"></td>
+  <td class="EveLeftBlk">VHDL</td>
+  <td class="OddLeftBlk">0</td>
+  <td class="EveLeftBlk">03/21/2018 09:07:16 pm</td>
+</tr>
+<tr>
+  <td class="EveLeftBlk" colspan=1>bva-b.vhd</td>
+  <td class="OddLeftBlk"></td>
+  <td class="EveLeftBlk">VHDL</td>
+  <td class="OddLeftBlk">1</td>
+  <td class="EveLeftBlk">03/21/2018 09:07:11 pm</td>
+</tr>
+</table>
+</html>

@@ -69,5 +69,5 @@ begin
 	end process reg_file_process;
 end architecture behavior; 
 
-entity reg_file_tb is
+entity reg_file_tb
 end reg_file_tb;
