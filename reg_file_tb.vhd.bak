@@ -1,0 +1,50 @@
+LIBRARY work;
+USE work.bv_arithmetic.ALL;
+USE work.dlx_types.ALL;
+
+entity reg_file_tb is
+end reg_file_tb;
+
+architecture test of reg_file_tb is
+	signal clock_SIG         : bit := '0';
+	signal readnotwrite_SIG  : bit := '0';
+	signal reg_num_SIG   	 : register_index := "00000";
+	signal data_in_SIG       : dlx_word := x"00000000";
+	signal data_out_SIG      : dlx_word;
+	
+	component reg_file is
+		generic ( prop_delay: time:= 15 ns );
+		port (
+			clock           : in  bit;
+			readnotwrite    : in  bit;
+			reg_number      : in register_index;
+			data_in         : in dlx_word;
+			data_out        : out dlx_word
+		);
+    	end component reg_file;
+  
+	-- Time interval between signal changes
+	constant TIME_DELTA : time := 20 ns;
+  
+	-- Used for converting our bits to string format --
+	type T_bit_map is array(bit) of character;
+	constant C_BIT_MAP: T_bit_map := ('0', '1');
+
+begin
+	-- Instantiate Unit Under Test (UUT)
+	reg_file_INST : reg_file
+		port map (
+			clock          => 	clock_SIG,
+			readnotwrite   => 	readnotwrite_SIG,
+			reg_number     => 	reg_num_SIG,
+			data_in        => 	data_in_SIG,
+			data_out       => 	data_out_SIG
+		);
+
+	  -- Test
+	  process is
+	   
+
+    
+  	end process;
+end test;
