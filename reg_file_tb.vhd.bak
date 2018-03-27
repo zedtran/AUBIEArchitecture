@@ -8,7 +8,7 @@ end reg_file_tb;
 architecture test of reg_file_tb is
 
 	component reg_file is
-		generic ( prop_delay: time:= 15 ns );
+		generic ( prop_delay: time := 15 ns );
 		port (
 			clock           : in  bit;
 			readnotwrite    : in  bit;
@@ -48,16 +48,23 @@ begin
 			data_out       => 	data_out
 		);
 		
+		-- Stimuli (Lines 52 - 61) --
 		clock		 <= '1', '0' after 140 ns;
-		readnotwrite 	 <= '0', '1' after 30 ns, '0' after 60 ns, '1' after 90 ns, '0' after 120 ns, '0' after 150 ns;
-		reg_number 	 <= "00000", "00001" after 30 ns, "00010" after 60 ns, "00011" after 90 ns, "00100" after 120 ns, "00101" after 150 ns;
-		data_in		 <= x"11111111", x"22222222" after 30 ns, x"33333333" after 60 ns, x"44444444" after 90 ns, x"55555555" after 120 ns, x"00000000" after 150 ns;
+		readnotwrite 	 <= '0', '1' after 30 ns, '0' after 60 ns, '1' after 90 ns, '0' after 120 ns, '0' after 170 ns;
+		
+		--------------------------------------------------------------------------------------------------------------------------------	
+		-- NOTE: For the purpose of showing data_out being modified during the simulation, we will use the same register index value. --
+		-- 	 The below line denoted with (#) can be used if we want to show new register indeces being written to.		      --
+		--------------------------------------------------------------------------------------------------------------------------------
+		reg_number 	 <= "00000"; 
+		-- (#) reg_number 	 <= "00000", "00000" after 30 ns, "00000" after 60 ns, "00000" after 90 ns, "00000" after 120 ns, "00000" after 170 ns;
+		data_in		 <= x"11111111", x"22222222" after 30 ns, x"33333333" after 60 ns, x"44444444" after 90 ns, x"55555555" after 120 ns, x"00000000" after 170 ns;
 
 	  -- Test
 	  stimulus_process: process
 
 	  begin
-	    	-- Check UUT response --	
+	    	-- Check UUT response --
 		
 		wait for 150 ns; -- Let all input signals propagate
 	    wait; -- Terminate so we don't continue run -all   

@@ -5,7 +5,6 @@ Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 
 -- Loading package dlx_types
 -- Compiling entity reg_file
 -- Compiling architecture behavior of reg_file
--- Compiling entity reg_file_tb
 
 } {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
