@@ -11,10 +11,10 @@ USE work.dlx_types.ALL;
 --  The operation codes are
 --  0000 = unsigned add
 --  0001 = unsigned subtract
---  0010 = two'€™s complement add
---  0011 = two'€™s complement subtract
---  0100 = two'€™s complement multiply
---  0101 = two'€™s complement divide
+--  0010 = twoâ€™s complement add
+--  0011 = twoâ€™s complement subtract
+--  0100 = twoâ€™s complement multiply
+--  0101 = twoâ€™s complement divide
 --  0110 = logical AND
 --  0111 = bitwise AND
 --  1000 = logical OR
