@@ -1,9 +1,4 @@
-C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd
-Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
--- Loading package STANDARD
--- Compiling package bv_arithmetic
-
-} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file.vhd
+C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
 -- Loading package STANDARD
 -- Loading package bv_arithmetic
@@ -11,10 +6,10 @@ Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 
 -- Compiling entity reg_file
 -- Compiling architecture behavior of reg_file
 
-} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
 -- Loading package STANDARD
--- Compiling package dlx_types
+-- Compiling package bv_arithmetic
 
 } {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
@@ -23,6 +18,19 @@ Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 
 -- Loading package dlx_types
 -- Compiling entity reg_file_tb
 -- Compiling architecture test of reg_file_tb
+
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Compiling package dlx_types
+
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/alu.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/alu.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package bv_arithmetic
+-- Loading package dlx_types
+-- Compiling entity ALU
+-- Compiling architecture behavior of ALU
 
 } {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015

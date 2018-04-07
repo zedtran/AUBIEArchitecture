@@ -2,15 +2,15 @@ LIBRARY work;
 USE work.dlx_types.ALL;
 
 -------------------------------------------------------------------
--- 	BEGIN Define ENTITY "dlx_register" 				 --
+-- 	BEGIN Define ENTITY "dlx_register" 			 --
 -- NOTE: We implement a 32-bit Datapath which uses 8 hex digits. --
 -- 		 A 16-bit Datapath would utilize 4 hex digits	 --
 -------------------------------------------------------------------
 entity dlx_register is
 			port(
-					in_val		: 	in dlx_word;
-					clock			: 	in bit;
-					out_val		: 	out dlx_word
+				in_val		: 	in dlx_word;
+				clock		: 	in bit;
+				out_val		: 	out dlx_word
 			);
 end entity dlx_register;
 
