@@ -9,7 +9,7 @@ z2
 cModel Technology
 dC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU
 Ealu
-Z0 w1523120885
+Z0 w1523126072
 Z1 DPx4 work 9 dlx_types 0 22 @MWS?C@zLBViQibDEWe=J0
 Z2 DPx4 work 13 bv_arithmetic 0 22 ;=2SeGQPb=ziI`4efIfkn0
 Z3 dC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ
@@ -21,9 +21,9 @@ VzDSkaYo0haTIG]d09Y40[3
 !s100 7z61I:RmLLha;J;IaXZ3P2
 Z6 OP;C;10.4a;61
 32
-Z7 !s110 1523120890
+Z7 !s110 1523126079
 !i10b 1
-Z8 !s108 1523120890.000000
+Z8 !s108 1523126079.000000
 Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/alu.vhd|
 Z10 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/alu.vhd|
 !i113 1
@@ -32,11 +32,11 @@ Z12 tExplicit 1
 Abehavior
 R1
 R2
-DEx4 work 3 alu 0 22 zDSkaYo0haTIG]d09Y40[3
+Z13 DEx4 work 3 alu 0 22 zDSkaYo0haTIG]d09Y40[3
 l47
 L44
-VChPjh1EVBn47f]=h76_S_0
-!s100 JDTCcd]jg26_A<NVm<jFM3
+V<PM8:7?g53a`Ga>=Nf9IY3
+!s100 z9@9z`U9nbl6FhWnU;F8L2
 R6
 32
 R7
@@ -78,9 +78,9 @@ VLPF@=`8X>]9I@:nc^2mYE3
 !s100 ;^d^hPQojBY3:39_Lf`ZP1
 R6
 32
-Z13 !s110 1523120889
+Z14 !s110 1523120889
 !i10b 1
-Z14 !s108 1523120889.000000
+Z15 !s108 1523120889.000000
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd|
 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd|
 !i113 1
@@ -88,39 +88,39 @@ R11
 R12
 nbody
 Edlx_register
-Z15 w1523070660
+Z16 w1523070660
 R1
 R3
-Z16 8C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd
-Z17 FC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd
+Z17 8C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd
+Z18 FC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd
 l0
 L9
 Vkn8lYh[IRK?iCTl[A<Wle0
 !s100 Oj]@hWS]WRbdA;@Z?MER;1
 R6
 32
-R7
+Z19 !s110 1523120890
 !i10b 1
-R8
-Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd|
-Z19 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd|
+Z20 !s108 1523120890.000000
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd|
+Z22 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx_register.vhd|
 !i113 1
 R11
 R12
 Abehavior
 R1
-Z20 DEx4 work 12 dlx_register 0 22 kn8lYh[IRK?iCTl[A<Wle0
+DEx4 work 12 dlx_register 0 22 kn8lYh[IRK?iCTl[A<Wle0
 l22
 L20
-Z21 V5SXmLzf6=:VX6AXH@EgHQ0
-Z22 !s100 am`NbZJNfe3L4aeV3KNAz2
+V5SXmLzf6=:VX6AXH@EgHQ0
+!s100 am`NbZJNfe3L4aeV3KNAz2
 R6
 32
-R7
-!i10b 1
-R8
-R18
 R19
+!i10b 1
+R20
+R21
+R22
 !i113 1
 R11
 R12
@@ -135,9 +135,9 @@ V@MWS?C@zLBViQibDEWe=J0
 !s100 97lSCM@>azhK1Sj:adP1Z3
 R6
 32
-R13
-!i10b 1
 R14
+!i10b 1
+R15
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd|
 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd|
 !i113 1
@@ -156,9 +156,9 @@ VSgEz>b_Ya=hRO=M[jlRgP2
 !s100 :YeokmS`LF87]jWC10N4Z1
 R6
 32
-R13
-!i10b 1
 R14
+!i10b 1
+R15
 Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file.vhd|
 Z27 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file.vhd|
 !i113 1
@@ -174,9 +174,9 @@ Vz3nnfMTlCR=78_L7QVDEG1
 !s100 NA==6Gzi<SmmLQ4G`c45N2
 R6
 32
-R13
-!i10b 1
 R14
+!i10b 1
+R15
 R26
 R27
 !i113 1
@@ -195,9 +195,9 @@ VHU@`PN3no0ROJEaY[Io@Z1
 !s100 O4:eL=c;h[T^Z0@>Pe5RW2
 R6
 32
-R13
-!i10b 1
 R14
+!i10b 1
+R15
 Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd|
 Z32 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd|
 !i113 1
@@ -213,9 +213,9 @@ VQ^Y6:Djz<_h_lnZl91A<U3
 !s100 `ficmMAH7oNEF=O6:@KoF2
 R6
 32
-R13
-!i10b 1
 R14
+!i10b 1
+R15
 R31
 R32
 !i113 1

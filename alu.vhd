@@ -11,10 +11,10 @@ USE work.dlx_types.ALL;
 --  The operation codes are
 --  0000 = unsigned add
 --  0001 = unsigned subtract
---  0010 = two'€™s complement add
---  0011 = two'€™s complement subtract
---  0100 = two'€™s complement multiply
---  0101 = two'€™s complement divide
+--  0010 = two's complement add
+--  0011 = two's complement subtract
+--  0100 = two's complement multiply
+--  0101 = two's complement divide
 --  0110 = logical AND
 --  0111 = bitwise AND
 --  1000 = logical OR
@@ -79,7 +79,7 @@ begin
                               if (temp_result(31) = '1') then
                                   error <= "0001"; -- overflow occurred
                               end if;
-                          -- (-A) + (-ˆ’B) = +C
+                          -- (-A) + (-B) = +C
                           elsif (operand1(31) = '1') AND (operand2(31) = '1') then
                               if (temp_result(31) = '0') then
                                   error <= "0010"; -- underflow occurred
@@ -201,10 +201,10 @@ begin
                       end loop;
                       result <= temp_result;
                   when "1010" => -- PERFORM LOGICAL NOT OF OPERAND1 (ignore operand2)
-                      temp_result := logical_false; -- Initially assigned to false (i.e. 32'h00000000)
+                      temp_result := logical_true; -- Initially assigned to true (i.e. 32'h00000001)
                       for i in 31 downto 0 loop
-                          if (NOT operand1(i) = '1') then
-                              temp_result := logical_true; -- logical NOT resulted in true, assign true (i.e. 32'h00000001)
+                          if (NOT operand1(i) = '0') then -- i.e. IF operand1 is non-zero
+                              temp_result := logical_false; -- logical NOT resulted in false; Therefore, NOT(operand1) = false
                               exit;
                           end if;
                       end loop;
