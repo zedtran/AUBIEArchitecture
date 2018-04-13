@@ -22,7 +22,7 @@ Once you become familiar with how to navigate the ModelSim GUI and its menus, yo
 <VSIM> do <ENTITY>.do
 ```
 <Entity>.do files are not auto-generated and simply execute on VSIM terminal commands. You can copy your "force" commands from the Transcript window and create a .do file of your own for ease of subsequent signal testing,
-or you may choose to manually select entity signals (add wave) to place in the "Wave - default" window and "force" signal outputs. Navigate (here)[https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/alu_test_Screenshots/ALU_OP_0_TEST.PNG] to see an example of how signals would appear in the Wave output window.
+or you may choose to manually select entity signals (add wave) to place in the "Wave - default" window and "force" signal outputs. Navigate [here](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/alu_test_Screenshots/ALU_OP_0_TEST.PNG) to see an example of how signals would appear in the Wave output window.
 
 
 ## Built With
