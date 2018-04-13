@@ -1,9 +1,13 @@
 # AUBIE_CPU_Architecture
-This Repository contains custom-defined (AUBIE) processor components as defined by the ModelSimPE  VHDL([Very High Speed Integrated Circuit] Hardware Description Language) Simulation Environment
+This Repository contains custom-defined (AUBIE) processor components as defined by the ModelSimPE  VHDL([Very High Speed Integrated Circuit] Hardware Description Language) Simulation Environment. 
+
+This is a custom implementation of a MIPS-based Architecture with a 32-bit datapath. The AUBIE_CPU datapath has the following schematic:
+
+![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_datapath.jpg)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for Simulation and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for Simulation and testing purposes. 
 
 ### Prerequisites && Installation
 
