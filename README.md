@@ -10,9 +10,9 @@ The opcode is always found in the high order 8 bits of an instruction word (bits
 
 ### ALU Instructions 
 ALU Instructions are one dlx_word long (1 address) and have the following format:
-| Opcode       	| Dest         	| Op1          	| Op2          	| Not Used   	|
-|--------------	|--------------	|--------------	|--------------	|------------	|
-| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+| Opcode       	    | Dest         	    | Op1          	  | Op2          	  | Not Used   	  |
+|------------------	|-----------------	|----------------	|---------------	|-------------	|
+| Bits 31 thru 24 	| Bits 23 thru 19 	| Bits 18 thru 14 | Bits 13 thru 19 | Bits 8 thru 0 |
 
 ### OPCODES
 | Mnemonic                 	| Opcode 	| Meaning             	|
