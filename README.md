@@ -6,13 +6,16 @@ This is a custom implementation of a MIPS-based Architecture with a 32-bit datap
 ![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_datapath.jpg)
 
 ## Instruction Set 
-The opcode is always found in the high order 8 bits of an instruction word (bits 31-24). Instructions can be variable length (either one dlx_word long or two words long). In addition to the opcode, the first word may hold a number of register numbers for source and destination registers. The second word contains either a 32-bit immediate value for the load immediate (LDI) instruction or it holds an address for the store (STO), load (LD), jump (JMP), or jump-if-zero (JZ) instructions. 
+The opcode for this architecture is always found in the high order 8 bits of an instruction word (bits 31-24). Instructions can be variable length (either one dlx_word long or two words long). In addition to the opcode, the first word may hold a number of register numbers for source and destination registers. The second word contains either a 32-bit immediate value for the load immediate (LDI) instruction or it holds an address for the store (STO), load (LD), jump (JMP), or jump-if-zero (JZ) instructions. 
 
 ### ALU Instructions 
 ALU Instructions are one dlx_word long (1 address) and have the following format:
-| Opcode       	    | Dest         	    | Op1          	  | Op2          	  | Not Used   	  |
-|------------------	|-----------------	|----------------	|---------------	|-------------	|
-| Bits 31 thru 24 	| Bits 23 thru 19 	| Bits 18 thru 14 | Bits 13 thru 19 | Bits 8 thru 0 |
+
+| Opcode       	| Dest         	| Op1          	| Op2          	| Not Used   	|
+|--------------	|--------------	|--------------	|--------------	|------------	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+
+
 
 ### OPCODES
 | Mnemonic                 	| Opcode 	| Meaning             	|
