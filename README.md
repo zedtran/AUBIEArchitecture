@@ -5,9 +5,35 @@ This is a custom implementation of a MIPS-based Architecture with a 32-bit datap
 
 ![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_datapath.jpg)
 
+## Instruction Set 
+The opcode is always found in the high order 8 bits of an instruction word (bits 31-24). Instructions can be variable length (either one dlx_word long or two words long). In addition to the opcode, the first word may hold a number of register numbers for source and destination registers. The second word contains either a 32-bit immediate value for the load immediate (LDI) instruction or it holds an address for the store (STO), load (LD), jump (JMP), or jump-if-zero (JZ) instructions. 
+
+### ALU Instructions 
+ALU Instructions are one dlx_word long (1 address) and have the following format:
+| Opcode       	| Dest         	| Op1          	| Op2          	| Not Used   	|
+|--------------	|--------------	|--------------	|--------------	|------------	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+
+### OPCODES
+| Mnemonic                 	| Opcode 	| Meaning             	|
+|--------------------------	|--------	|---------------------	|
+| ADDU    dest, op1, op2   	| 0x00   	| unsigned add        	|
+| SUBU    dest, op1, op2   	| 0x01   	| unsigned subtract   	|
+| ADD     dest, op1, op2  	| 0x02   	| two's comp add      	|
+| SUB     dest, op1, op2 	  | 0x03   	| two's comp subtract 	|
+| MUL     dest, op1, op2  	| 0x04   	| two's comp multiply 	|
+| DIV     dest, op1, op2 	  | 0x05   	| two's comp divide   	|
+| ANDL    dest, op1, op2    | 0x06   	| logical AND         	|
+| ANDB    dest, op1, op2    | 0x07   	| bitwise AND         	|
+| ORL     dest, op1, op2  	| 0x08   	| logical OR          	|
+| ORB     dest, op1, op2   	| 0x09   	| bitwise OR          	|
+| NOTL    dest, op1, op2    | 0x0A   	| logical NOT(OP1)    	|
+| NOTB    dest, op1, op2    | 0x0B   	| bitwise NOT(OP1)    	|
+| NOOP                     	| 0x10   	| DO NOTHING          	|
+
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for Simulation and testing purposes. 
+These instructions will get you a copy of the project up and running on your local machine for Simulation and testing purposes. The files in this repo contain a comprehensive [specification list](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/AUBIE%20CPU%20SPECIFICATION.pdf) of datapath elements and Cycle-by-Cycle [semantics](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/SEMANTICS%20%20OF%20AUBIE%20PROCESSOR%20INSTRUCTIONS.pdf) for each instruction. 
 
 ### Prerequisites && Installation
 
