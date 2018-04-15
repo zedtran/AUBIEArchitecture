@@ -34,7 +34,7 @@ Word 2 has the following format:
 
 ### OPCODES
 | Mnemonic                 	| Opcode 	| Meaning             	                                            |
-|--------------------------	|--------	|-----------------------------------------------------------------	|
+|----- |--------------------|--------	|-----------------------------------------------------------------	|
 | ADDU |  dest, op1, op2   	| 0x00   	| unsigned add        	                                            |
 | SUBU |  dest, op1, op2   	| 0x01   	| unsigned subtract   	                                            |
 | ADD  |  dest, op1, op2  	| 0x02   	| two's comp add      	                                            |
