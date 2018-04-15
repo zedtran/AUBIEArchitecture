@@ -34,21 +34,21 @@ Word 2 has the following format:
 
 ### OPCODES
 | Mnemonic                 	| Opcode 	| Meaning             	                                            |
-|----- |--------------------|--------	|-----------------------------------------------------------------	|
-| ADDU |  dest, op1, op2   	| 0x00   	| unsigned add        	                                            |
-| SUBU |  dest, op1, op2   	| 0x01   	| unsigned subtract   	                                            |
-| ADD  |  dest, op1, op2  	| 0x02   	| two's comp add      	                                            |
-| SUB  |  dest, op1, op2 	  | 0x03   	| two's comp subtract 	                                            |
-| MUL  |  dest, op1, op2  	| 0x04   	| two's comp multiply 	                                            |
-| DIV  |  dest, op1, op2 	  | 0x05   	| two's comp divide   	                                            |
-| ANDL |  dest, op1, op2    | 0x06   	| logical AND         	                                            |
-| ANDB |  dest, op1, op2    | 0x07   	| bitwise AND         	                                            |
-| ORL  |  dest, op1, op2  	| 0x08   	| logical OR          	                                            |
-| ORB  |  dest, op1, op2   	| 0x09   	| bitwise OR          	                                            |
-| NOTL |  dest, op1, op2    | 0x0A   	| logical NOT(OP1)    	                                            |
-| NOTB |  dest, op1, op2    | 0x0B   	| bitwise NOT(OP1)    	                                            |
+|-------------------------- |--------	|-----------------------------------------------------------------	|
+| ADDU   dest, op1, op2   	| 0x00   	| unsigned add        	                                            |
+| SUBU   dest, op1, op2   	| 0x01   	| unsigned subtract   	                                            |
+| ADD    dest, op1, op2  	  | 0x02   	| two's comp add      	                                            |
+| SUB    dest, op1, op2 	  | 0x03   	| two's comp subtract 	                                            |
+| MUL    dest, op1, op2  	  | 0x04   	| two's comp multiply 	                                            |
+| DIV    dest, op1, op2 	  | 0x05   	| two's comp divide   	                                            |
+| ANDL   dest, op1, op2     | 0x06   	| logical AND         	                                            |
+| ANDB   dest, op1, op2     | 0x07   	| bitwise AND         	                                            |
+| ORL    dest, op1, op2  	  | 0x08   	| logical OR          	                                            |
+| ORB    dest, op1, op2   	| 0x09   	| bitwise OR          	                                            |
+| NOTL   dest, op1, op2     | 0x0A   	| logical NOT(OP1)    	                                            |
+| NOTB   dest, op1, op2     | 0x0B   	| bitwise NOT(OP1)    	                                            |
 | NOOP                     	| 0x10   	| DO NOTHING          	                                            |
-| STO  |  op1, address      | 0x20   	| Put contents of reg op1 in memory specified by address word 2    	|
+| STO    op1, address       | 0x20   	| Put contents of reg op1 in memory specified by address word 2    	|
 
 ## Getting Started
 
