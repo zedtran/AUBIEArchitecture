@@ -6,6 +6,7 @@ USE work.dlx_types.ALL;
 -- NOTE: We implement a 32-bit Datapath which uses 8 hex digits. --
 -------------------------------------------------------------------
 entity dlx_register is
+	generic(prop_delay : Time := 5 ns);
 	port(
 	     in_val	: 	in dlx_word;
 	     clock	: 	in bit;
@@ -26,7 +27,7 @@ begin
 	begin
 		-- Start process
 		if (clock = '1') then
-			out_val <= in_val;
+			out_val <= in_val after prop_delay;
 		end if;
 	end process dlx_reg_process;
 end architecture behavior;
