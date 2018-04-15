@@ -118,23 +118,23 @@ begin
                     -------------------------------------------------------------------------------
                     when 3 => -- ALU op (Step1):  load op1 register from the regfile
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        regfile_index	<= operand1; -- The register_index
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        regfile_index <= operand1; -- The register_index
                         regfile_readnotwrite <= '1'; -- Needs to be high because we're doing a read (ignores data_in signal)
-                        regfile_clk	<= '1'; -- Needs to be high for a regfile operation
-                        mem_clk	<= '0';
+                        regfile_clk <= '1'; -- Needs to be high for a regfile operation
+                        mem_clk <= '0';
                         --mem_readnotwrite <= '#';
                         ir_clk <= '0';
                         imm_clk <= '0';
                         addr_clk <= '0';
                         pc_clk <= '0';
-                        op1_clk	<= '1'; -- op1_register clock needs to be high so it can accept regfile data_out
-                        op2_clk	<= '0';
-                        result_clk	<= '0';
+                        op1_clk <= '1'; -- op1_register clock needs to be high so it can accept regfile data_out
+                        op2_clk <= '0';
+                        result_clk <= '0';
 
 
                     ------------------ STATE 3 Questions, Comments, & Concerns --------------------
@@ -146,96 +146,96 @@ begin
                         state := 4;
                     when 4 => -- ALU op (Step2): load op2 register from the regfile
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        regfile_index	<= operand2; -- The register_index
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        regfile_index <= operand2; -- The register_index
                         regfile_readnotwrite <= '1'; -- Needs to be high because we're doing a read
-                        regfile_clk	<= '1'; -- Needs to be high for regfile operation
-                        mem_clk	<= '0';
+                        regfile_clk <= '1'; -- Needs to be high for regfile operation
+                        mem_clk <= '0';
                         --mem_readnotwrite <= '#';
                         ir_clk <= '0';
                         imm_clk <= '0';
                         addr_clk <= '0';
                         pc_clk <= '0';
-                        op1_clk	<= '0';
-                        op2_clk	<= '1'; -- op2_register clock needs to be high for receiving reg_file data_out
-                        result_clk	<= '0';
+                        op1_clk <= '0';
+                        op2_clk <= '1'; -- op2_register clock needs to be high for receiving reg_file data_out
+                        result_clk <= '0';
 
 
                     ------------------ State 4 Questions, Comments, & Concerns --------------------
                     -- (1) Does op1_register clock need to be set to low so its value from State 3 is retained?
-                    --		 If op1_clk is instead low, does its register's out_val change or is the register
-                    --		 output signal somehow no longer being propagated?
+                    --     If op1_clk is instead low, does its register's out_val change or is the register
+                    --     output signal somehow no longer being propagated?
                     --
                     -------------------------------------------------------------------------------
 
                         state := 5;
                     when 5 => -- ALU op (Step3):  perform ALU operation (Copy ALU output into result register)
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        alu_func	<= opcode(3 downto 0); -- The specific ALU operation denoted by the last 4 bits of the opcode
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        alu_func <= opcode(3 downto 0); -- The specific ALU operation denoted by the last 4 bits of the opcode
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        regfile_clk	<= '0';
-                        mem_clk	<= '0';
+                        regfile_clk <= '0';
+                        mem_clk <= '0';
                         --mem_readnotwrite <= '#';
                         ir_clk <= '0';
                         imm_clk <= '0';
                         addr_clk <= '0';
                         pc_clk <= '0';
-                        op1_clk	<= '0';
-                        op2_clk	<= '0';
-                        result_clk	<= '1'; -- Need to add ALU operation value to result register
+                        op1_clk <= '0';
+                        op2_clk <= '0';
+                        result_clk <= '1'; -- Need to add ALU operation value to result register
 
 
 
 
                     ------------------ State 5 Questions, Comments, & Concerns --------------------
                     -- (1) What do we do with the alu_out (dlx_word) and alu_error (4 bit error_code)
-                    --		 control unit input signals? Is that handled in this state?
-                    -- 		 \\ result <= alu_out; HOW DO WE ACTUALLY DO THIS? \\
-                    -- 		 \\ something <= alu_error; HOW DO WE ACTUALLY DO THIS? \\
+                    --     control unit input signals? Is that handled in this state?
+                    --      \\ result <= alu_out; HOW DO WE ACTUALLY DO THIS? \\
+                    --      \\ something <= alu_error; HOW DO WE ACTUALLY DO THIS? \\
                     -- (2) We are instructed to copy alu_out to result register, but alu_out is a dlx_word and no
-                    -- 		 output port signal matches a signal with that data width--unless these instructions are
-                    --		 some kind of cryptic way of simply telling us to set the result register clock to high.
-                    --		 The same goes for error_code output from alu operation.
+                    --     output port signal matches a signal with that data width--unless these instructions are
+                    --     some kind of cryptic way of simply telling us to set the result register clock to high.
+                    --     The same goes for error_code output from alu operation.
                     --------------------------------------------------------------------------------
 
                         state := 6;
                     when 6 => -- ALU op (Step4): write back ALU operation
 
-                        regfilein_mux	<= "00"; -- 3-way mux select for result
+                        regfilein_mux <= "00"; -- 3-way mux select for result
                         memaddr_mux <= "10"; -- memory address in mux select input_2
-                        --addr_mux	<= '#';
-                        pc_mux	<= '0'; -- pcplusone_out
-                        --alu_func	<= opcode(3 downto 0);
-                        regfile_index	<= destination;
+                        --addr_mux <= '#';
+                        pc_mux <= '0'; -- pcplusone_out
+                        --alu_func <= opcode(3 downto 0);
+                        regfile_index <= destination;
                         regfile_readnotwrite <= '0'; -- Write back to destination
-                        regfile_clk	<= '1'; -- Needs to be high, if not already
-                        mem_clk	<= '0';
+                        regfile_clk <= '1'; -- Needs to be high, if not already
+                        mem_clk <= '0';
                         --mem_readnotwrite <= '0';
                         ir_clk <= '0';
                         imm_clk <= '0';
                         addr_clk <= '0';
                         pc_clk <= '1'; -- To increment PC
-                        op1_clk	<= '0';
-                        op2_clk	<= '0';
-                        result_clk	<= '0';
+                        op1_clk <= '0';
+                        op2_clk <= '0';
+                        result_clk <= '0';
 
 
 
                     ------------------ State 6 Questions, Comments, & Concerns --------------------
                     -- (1) What do we do with the alu_out (dlx_word) and alu_error (4 bit error_code)
-                    --		 control unit input signals? Is that handled in this state?
+                    --     control unit input signals? Is that handled in this state?
                     -- (2) Does the ALU result signal get stored back in memory AND back in the register file?
                     -- (3) Should we handle memory writeback in this state? No mention in semantics of writeback to memory,
-                    --		 but it seems we want to write back to memory in this state.
+                    --     but it seems we want to write back to memory in this state.
                     -------------------------------------------------------------------------------
 
 
@@ -247,52 +247,52 @@ begin
                         -- Increment PC. Copy memory specified by PC into address register
                         -- PC -> PC+1. Mem[PC] --> Addr
                             pc_clk <= '1';
-                            pc_mux	<= '0'; -- pcplusone_out
+                            pc_mux <= '0'; -- pcplusone_out
 
-                            --regfilein_mux	<= "##";
+                            --regfilein_mux <= "##";
                             memaddr_mux <= "01"; -- mux select read from address register output
-                            addr_mux	<= '1'; -- input_1 select of mem_out
-                            --alu_func	<= opcode(3 downto 0);
-                            --regfile_index	<= destination, operand1, operand2;
+                            addr_mux <= '1'; -- input_1 select of mem_out
+                            --alu_func <= opcode(3 downto 0);
+                            --regfile_index <= destination, operand1, operand2;
                             --regfile_readnotwrite <= '#';
-                            regfile_clk	<= '0';
-                            mem_clk	<= '1';
+                            regfile_clk <= '0';
+                            mem_clk <= '1';
                             mem_readnotwrite <= '1'; -- Memory Read operation
                             ir_clk <= '0';
                             imm_clk <= '0';
                             addr_clk <= '1';
-                            op1_clk	<= '0';
-                            op2_clk	<= '0';
-                            result_clk	<= '0';
+                            op1_clk <= '0';
+                            op2_clk <= '0';
+                            result_clk <= '0';
                         else
                         -- load immediate value into register destination
                         -- Increment PC. Copy memory specified by PC into immediate register
                         -- PC -> PC+1. Mem[PC] --> Immed
                             pc_clk <= '1';
-                            pc_mux	<= '0'; -- pcplusone_out
+                            pc_mux <= '0'; -- pcplusone_out
 
-                            --regfilein_mux	<= "##";
+                            --regfilein_mux <= "##";
                             memaddr_mux <= "00";
-                            --addr_mux	<= '#';
-                            --alu_func	<= opcode(3 downto 0);
-                            --regfile_index	<= destination, operand1, operand2;
+                            --addr_mux <= '#';
+                            --alu_func <= opcode(3 downto 0);
+                            --regfile_index <= destination, operand1, operand2;
                             --regfile_readnotwrite <= '#';
-                            regfile_clk	<= '0';
-                            mem_clk	<= '1';
+                            regfile_clk <= '0';
+                            mem_clk <= '1';
                             mem_readnotwrite <= '1';
                             ir_clk <= '0';
                             imm_clk <= '1';
                             addr_clk <= '0';
-                            op1_clk	<= '0';
-                            op2_clk	<= '0';
-                            result_clk	<= '0';
+                            op1_clk <= '0';
+                            op2_clk <= '0';
+                            result_clk <= '0';
 
                         end if;
 
                     ------------------ State 7 Questions, Comments, & Concerns --------------------
                     -- (1) How do you increment and then copy afterwards? Are the signals synchronous (i.e.
-                    --		 If we assign pc_mux to '0' BEFORE setting the immediate clock to high,
-                    --		 will that increment the PC first?)
+                    --     If we assign pc_mux to '0' BEFORE setting the immediate clock to high,
+                    --     will that increment the PC first?)
                     --
                     --
                     -------------------------------------------------------------------------------
@@ -303,58 +303,58 @@ begin
                         if (opcode = x"30") then
                         -- Copy mem location specified by Address to the destination register. Increment PC.
                         -- Mem[Addr] --> Regs[IR[dest]]. PC --> PC+1.
-                            regfilein_mux	<= "01"; -- mux selector for memory out
+                            regfilein_mux <= "01"; -- mux selector for memory out
                             memaddr_mux <= "01"; -- mux selector input_1 for address register output
-                            addr_mux	<= '1';
-                            --alu_func	<= opcode(3 downto 0);
-                            regfile_index	<= destination;
+                            addr_mux <= '1';
+                            --alu_func <= opcode(3 downto 0);
+                            regfile_index <= destination;
                             regfile_readnotwrite <= '0';
-                            regfile_clk	<= '1';
-                            mem_clk	<= '1';
+                            regfile_clk <= '1';
+                            mem_clk <= '1';
                             mem_readnotwrite <= '1';
                             ir_clk <= '1';
                             imm_clk <= '0';
                             addr_clk <= '0';
-                            op1_clk	<= '0';
-                            op2_clk	<= '0';
-                            result_clk	<= '0';
+                            op1_clk <= '0';
+                            op2_clk <= '0';
+                            result_clk <= '0';
 
                             pc_clk <= '1';
-                            pc_mux	<= '0';
+                            pc_mux <= '0';
 
                         else
                         -- Copy immediate register into the destination register. Increment PC.
                         -- Immed --> Regs[IR[dest]]. PC --> PC+1.
-                            regfilein_mux	<= "10"; -- mux selector for immediate register out
+                            regfilein_mux <= "10"; -- mux selector for immediate register out
                             memaddr_mux <= "00"; -- mux selector input_0 for PC output
-                            --addr_mux	<= '#';
-                            --alu_func	<= opcode(3 downto 0);
-                            regfile_index	<= destination;
+                            --addr_mux <= '#';
+                            --alu_func <= opcode(3 downto 0);
+                            regfile_index <= destination;
                             regfile_readnotwrite <= '0';
-                            regfile_clk	<= '1';
-                            mem_clk	<= '1';
+                            regfile_clk <= '1';
+                            mem_clk <= '1';
                             mem_readnotwrite <= '1';
                             ir_clk <= '1';
                             imm_clk <= '1';
                             addr_clk <= '0';
-                            op1_clk	<= '0';
-                            op2_clk	<= '0';
-                            result_clk	<= '0';
+                            op1_clk <= '0';
+                            op2_clk <= '0';
+                            result_clk <= '0';
 
 
                             pc_clk <= '1';
-                            pc_mux	<= '0';
+                            pc_mux <= '0';
 
                         end if;
 
                     ------------------ State 8 Questions, Comments, & Concerns --------------------
                     -- (1) How do you copy and then increment the PC afterwards? Are the signals synchronous?
-                    --		 Can I assign pc_mux two different values in the same state? Initially, I need
-                    --		 the current PC address and then I need to increment afterwards. How would I do this?
-                    --		 (pc_mux <= '1' at the beginning and then pc_mux <= '0' at the end?)
+                    --     Can I assign pc_mux two different values in the same state? Initially, I need
+                    --     the current PC address and then I need to increment afterwards. How would I do this?
+                    --     (pc_mux <= '1' at the beginning and then pc_mux <= '0' at the end?)
                     -- (2) If the immediate register clock or address register clock (dlx_register) is
-                    --		 set to low in this state but was high in the last state, does it still propagate
-                    --		 the output signal from the last state?
+                    --     set to low in this state but was high in the last state, does it still propagate
+                    --     the output signal from the last state?
                     --
                     -------------------------------------------------------------------------------
 
@@ -362,179 +362,179 @@ begin
                     when 9 => -- STO (Step1): Store contents of Register op1 specified by address word 2
                     -- Increment PC.
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        pc_mux	<= '0';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux  <= '#';
+                        pc_mux <= '0';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         pc_clk <= '1';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 10;
                     when 10 => -- STO (Step2): Store contents of Register op1 specified by address word 2
                     -- Load memory at address given by PC to the address register: Mem[PC] --> Addr.
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 11;
                     when 11 => -- STO (Step3): Store contents of Register op1 specified by address word 2
                     -- Store contents of src register to address in memory given by address register,
                     -- then increment PC. Regs[IR[src]] --> Mem[Addr]. PC -> PC+1
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 1;
                     when 12 => -- LDR (Step1): Copy contents of op1 reg to Address register:
                     -- Regs[IR[op1]] --> Addr
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 13;
                     when 13 => -- LDR (Step2): Copy contents of memory specified by Address register to destination register:
                     -- Mem[Addr] --> Regs[IR[dest]]. Increment PC --> PC+1.
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 1;
                     when 14 => -- STOR (Step1): Copy contents of dest reg into Address Register:
                     -- Regs[IR[dest]] --> Addr
                     -- your code here
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 15;
                     when 15 => -- STOR (Step2): Copy contents of op1 register to Memory address specified by Address register:
                     -- Regs[IR[op1]] --> Mem[Addr]. Increment PC --> PC+1
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
 
                         state := 1;
                     when 16 => -- JMP or JZ (Step1): Increment PC --> PC+1
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
 
                         state := 17;
                     when 17 => -- JMP or JZ (Step2):
@@ -542,45 +542,45 @@ begin
                         if (opcode = x"40") then -- JMP
                         -- Load memory specified by PC to Address register: Mem[PC] --> Addr
 
-                            --regfilein_mux	<= "##";
+                            --regfilein_mux <= "##";
                             --memaddr_mux <= "##";
-                            --addr_mux	<= '#';
-                            --pc_mux	<= '#';
-                            --alu_func	<= opcode(3 downto 0);
-                            --regfile_index	<= destination, operand1, operand2;
+                            --addr_mux <= '#';
+                            --pc_mux <= '#';
+                            --alu_func <= opcode(3 downto 0);
+                            --regfile_index <= destination, operand1, operand2;
                             --regfile_readnotwrite <= '#';
-                            --regfile_clk	<= '#';
-                            --mem_clk	<= '#';
+                            --regfile_clk <= '#';
+                            --mem_clk <= '#';
                             --mem_readnotwrite <= '#';
                             --ir_clk <= '#';
                             --imm_clk <= '#';
                             --addr_clk <= '#';
                             --pc_clk <= '#';
-                            --op1_clk	<= '#';
-                            --op2_clk	<= '#';
-                            --result_clk	<= '#';
+                            --op1_clk <= '#';
+                            --op2_clk <= '#';
+                            --result_clk <= '#';
 
                         else -- JZ
                         -- Load memory specified by PC to Address register: Mem[PC] --> Addr,
                         -- then copy register op1 to control: Regs[IR[op1]] --> Ctl
 
-                            --regfilein_mux	<= "##";
+                            --regfilein_mux <= "##";
                             --memaddr_mux <= "##";
-                            --addr_mux	<= '#';
-                            --pc_mux	<= '#';
-                            --alu_func	<= opcode(3 downto 0);
-                            --regfile_index	<= destination, operand1, operand2;
+                            --addr_mux <= '#';
+                            --pc_mux <= '#';
+                            --alu_func <= opcode(3 downto 0);
+                            --regfile_index <= destination, operand1, operand2;
                             --regfile_readnotwrite <= '#';
-                            --regfile_clk	<= '#';
-                            --mem_clk	<= '#';
+                            --regfile_clk <= '#';
+                            --mem_clk <= '#';
                             --mem_readnotwrite <= '#';
                             --ir_clk <= '#';
                             --imm_clk <= '#';
                             --addr_clk <= '#';
                             --pc_clk <= '#';
-                            --op1_clk	<= '#';
-                            --op2_clk	<= '#';
-                            --result_clk	<= '#';
+                            --op1_clk <= '#';
+                            --op2_clk <= '#';
+                            --result_clk <= '#';
 
                         end if;
 
@@ -590,68 +590,67 @@ begin
                         if (opcode = x"40") then -- JMP
                         -- Load Addr to PC: Addr --> PC
 
-                            --regfilein_mux	<= "##";
+                            --regfilein_mux <= "##";
                             --memaddr_mux <= "##";
-                            --addr_mux	<= '#';
-                            --pc_mux	<= '#';
-                            --alu_func	<= opcode(3 downto 0);
-                            --regfile_index	<= destination, operand1, operand2;
+                            --addr_mux <= '#';
+                            --pc_mux <= '#';
+                            --alu_func <= opcode(3 downto 0);
+                            --regfile_index <= destination, operand1, operand2;
                             --regfile_readnotwrite <= '#';
-                            --regfile_clk	<= '#';
-                            --mem_clk	<= '#';
+                            --regfile_clk <= '#';
+                            --mem_clk <= '#';
                             --mem_readnotwrite <= '#';
                             --ir_clk <= '#';
                             --imm_clk <= '#';
                             --addr_clk <= '#';
                             --pc_clk <= '#';
-                            --op1_clk	<= '#';
-                            --op2_clk	<= '#';
-                            --result_clk	<= '#';
+                            --op1_clk <= '#';
+                            --op2_clk <= '#';
+                            --result_clk <= '#';
 
                         else -- JZ
                         -- If Result == 0, copy Addr to PC: Addr --> PC, else increment PC --> PC+1
 
-                            --regfilein_mux	<= "##";
+                            --regfilein_mux <= "##";
                             --memaddr_mux <= "##";
-                            --addr_mux	<= '#';
-                            --pc_mux	<= '#';
-                            --alu_func	<= opcode(3 downto 0);
-                            --regfile_index	<= destination, operand1, operand2;
+                            --addr_mux <= '#';
+                            --pc_mux <= '#';
+                            --alu_func <= opcode(3 downto 0);
+                            --regfile_index <= destination, operand1, operand2;
                             --regfile_readnotwrite <= '#';
-                            --regfile_clk	<= '#';
-                            --mem_clk	<= '#';
+                            --regfile_clk <= '#';
+                            --mem_clk <= '#';
                             --mem_readnotwrite <= '#';
                             --ir_clk <= '#';
                             --imm_clk <= '#';
                             --addr_clk <= '#';
                             --pc_clk <= '#';
-                            --op1_clk	<= '#';
-                            --op2_clk	<= '#';
-                            --result_clk	<= '#';
+                            --op1_clk <= '#';
+                            --op2_clk <= '#';
+                            --result_clk <= '#';
 
                         end if;
 
                         state := 1;
                     when 19 => -- NOOP: Only increments PC
 
-                        --regfilein_mux	<= "##";
+                        --regfilein_mux <= "##";
                         --memaddr_mux <= "##";
-                        --addr_mux	<= '#';
-                        --pc_mux	<= '#';
-                        --alu_func	<= opcode(3 downto 0);
-                        --regfile_index	<= destination, operand1, operand2;
+                        --addr_mux <= '#';
+                        --pc_mux <= '#';
+                        --alu_func <= opcode(3 downto 0);
+                        --regfile_index <= destination, operand1, operand2;
                         --regfile_readnotwrite <= '#';
-                        --regfile_clk	<= '#';
-                        --mem_clk	<= '#';
+                        --regfile_clk <= '#';
+                        --mem_clk <= '#';
                         --mem_readnotwrite <= '#';
                         --ir_clk <= '#';
                         --imm_clk <= '#';
                         --addr_clk <= '#';
                         --pc_clk <= '#';
-                        --op1_clk	<= '#';
-                        --op2_clk	<= '#';
-                        --result_clk	<= '#';
-
+                        --op1_clk <= '#';
+                        --op2_clk <= '#';
+                        --result_clk <= '#';
                         state := 1;
                     when 20 =>
                     -- Unsure if this state is used or unused yet.
@@ -659,16 +658,16 @@ begin
                 end case;
             elsif clock'event and clock = '0' then
             -- reset all the register clocks
-                regfile_clk	<= '0';
-                mem_clk	<= '0';
-                mem_readnotwrite	<= '0';
-                ir_clk	<= '0';
-                imm_clk	<= '0';
-                addr_clk	<= '0';
-                pc_clk	<= '0';
-                op1_clk		<= '0';
-                op2_clk	<= '0';
-                result_clk	<= '0';
+                regfile_clk <= '0';
+                mem_clk <= '0';
+                mem_readnotwrite <= '0';
+                ir_clk <= '0';
+                imm_clk <= '0';
+                addr_clk <= '0';
+                pc_clk <= '0';
+                op1_clk <= '0';
+                op2_clk <= '0';
+                result_clk <= '0';
             end if;
         end process behav;
 end behavior;
