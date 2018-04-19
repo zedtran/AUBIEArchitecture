@@ -5,6 +5,7 @@ use work.dlx_types.all;
 use work.bv_arithmetic.all;
 
 entity reg_file is
+    generic(prop_delay : Time := 15 ns);
     port (
         data_in     :   in dlx_word;
         readnotwrite:   in bit;

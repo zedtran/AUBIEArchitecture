@@ -1,0 +1,28 @@
+--regfilein_mux <= "##" after prop_delay;
+--memaddr_mux <= "##" after prop_delay;
+--addr_mux <= '#' after prop_delay;
+--pc_mux <= '#' after prop_delay;
+--alu_func <= opcode(3 downto 0) after prop_delay;
+--regfile_index <= destination, operand1, operand2 after prop_delay;
+--regfile_readnotwrite <= '#' after prop_delay;
+--regfile_clk <= '#' after prop_delay;
+--mem_clk <= '#' after prop_delay;
+--mem_readnotwrite <= '#' after prop_delay;
+--ir_clk <= '#' after prop_delay;
+--imm_clk <= '#' after prop_delay;
+--addr_clk <= '#' after prop_delay;
+--pc_clk <= '#' after prop_delay;
+--op1_clk <= '#' after prop_delay;
+--op2_clk <= '#' after prop_delay;
+--result_clk <= '#' after prop_delay;
+
+------------------ State 5 Questions, Comments, & Concerns --------------------
+-- (1) What do we do with the alu_out (dlx_word) and alu_error (4 bit error_code)
+--     control unit input signals? Is that handled in this state?
+--      \\ result <= alu_out; HOW DO WE ACTUALLY DO THIS? \\
+--      \\ something <= alu_error; HOW DO WE ACTUALLY DO THIS? \\
+-- (2) We are instructed to copy alu_out to result register, but alu_out is a dlx_word and no
+--     output port signal matches a signal with that data width--unless these instructions are
+--     some kind of cryptic way of simply telling us to set the result register clock to high.
+--     The same goes for error_code output from alu operation.
+--------------------------------------------------------------------------------
