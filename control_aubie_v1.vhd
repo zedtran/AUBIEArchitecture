@@ -5,8 +5,10 @@ use work.dlx_types.all;
 
 
 entity aubie_controller is
-    generic(prop_delay: Time := 5 ns); -- Controller propagation delay
-    generic(xt_prop_delay: Time := 100 ns); -- Extended prop_delay for allowing other signals to propagate first
+    generic(
+        prop_delay    : Time := 5 ns; 
+        xt_prop_delay : Time := 100 ns -- Extended prop_delay for allowing other signals to propagate first
+    ); -- Controller propagation delay
     port(
       ir_control            :   in dlx_word;
       alu_out               :   in dlx_word;
@@ -162,7 +164,7 @@ begin
                             op1_clk <= '0' after prop_delay;
                             op2_clk <= '0' after prop_delay;
                             result_clk <= '0' after prop_delay;
-                        else -- LDI
+                        elsif (opcode = x"31") then -- LDI
                         -- load immediate value into register destination
                         -- Increment PC. Copy memory specified by PC into immediate register
                         -- PC -> PC+1. Mem[PC] --> Immed
@@ -203,7 +205,7 @@ begin
                             pc_mux <= "01" after prop_delay, "00" after xt_prop_delay;
                             -- NOTE: We don't want to increment PC until AFTER other values are propagated because we want the mux to read from the address register first.
 
-                        else -- LDI
+                        elsif (opcode = x"31") then -- LDI
                         -- Copy immediate register into the destination register. Increment PC.
                         -- Immed --> Regs[IR[dest]]. PC --> PC+1.
                             regfilein_mux <= "10" after prop_delay; -- mux selector for immediate register out
@@ -361,7 +363,7 @@ begin
                             op1_clk <= '0' after prop_delay;
                             op2_clk <= '0' after prop_delay;
                             result_clk <= '0' after prop_delay;
-
+                        end if;
                         if (opcode = x"41") then -- JZ --> DO everything in the above condition +
                         -- copy register op1 to control: Regs[IR[op1]] --> Ctl
                             alu_func <= jz_op after xt_prop_delay;
@@ -389,12 +391,12 @@ begin
                         -- Load Addr to PC: Addr --> PC
                             pc_mux <= "01" after prop_delay;
                             pc_clk <= '1' after prop_delay;
-                        else -- JZ
+                        elsif (opcode = x"41") then-- JZ
                         -- If Result == 0, copy Addr to PC: Addr --> PC, else increment PC --> PC+1
                             if (alu_out = logical_true) then
                                 pc_mux <= "01" after prop_delay;
                                 pc_clk <= '1' after prop_delay;
-                            else
+                            elsif (alu_out = logical_false) then
                                 pc_clk <= '1' after prop_delay;
                                 pc_mux <= "00" after prop_delay;
                             end if;
@@ -404,8 +406,6 @@ begin
                         pc_mux <= "00" after prop_delay;
                         pc_clk <= '1' after prop_delay;
                         state := 1;
-                    when 20 =>
-                        -- May possibly use this state for jumps
                     when others => null;
                 end case;
             elsif clock'event and clock = '0' then

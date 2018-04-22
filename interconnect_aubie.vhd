@@ -26,12 +26,11 @@ architecture struct of aubie is
 
 	signal alu_func: alu_operation_code;
 
-	signal regfile_mux, memaddr_mux: threeway_muxcode;
+	signal regfile_mux, memaddr_mux, pc_mux: threeway_muxcode;
 
 	signal regfile_index: register_index;
 
-	signal addr_mux, pc_mux,
-		mem_clk, mem_readnotwrite,
+	signal addr_mux, mem_clk, mem_readnotwrite,
 		ir_clk, imm_clk,
 		addr_clk, pc_clk, regfile_clk, regfile_readnotwrite,
 	        op1_clk, op2_clk, result_clk:  bit;
