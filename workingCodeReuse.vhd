@@ -1,7 +1,7 @@
 --regfilein_mux <= "##" after prop_delay;
 --memaddr_mux <= "##" after prop_delay;
 --addr_mux <= '#' after prop_delay;
---pc_mux <= '#' after prop_delay;
+--pc_mux <= "##" after prop_delay;
 --alu_func <= opcode(3 downto 0) after prop_delay;
 --regfile_index <= destination, operand1, operand2 after prop_delay;
 --regfile_readnotwrite <= '#' after prop_delay;

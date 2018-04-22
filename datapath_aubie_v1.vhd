@@ -185,7 +185,8 @@ begin  -- behavior
         data_memory(257) := "10101010000000001111111100000000";
         data_memory(258) := "00000000000000000000000000000001";
 
-
+        -- IMPORTANT NOTE: For STOR (State 15), use bits 13-9 for the ALU function Bitwise AND ("0111")
+        --                 This is a format exception which will ensure that State 15 has a writeback value to memory data_in
 
         if clock = '1' then
           if readnotwrite = '1' then

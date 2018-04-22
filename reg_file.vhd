@@ -12,14 +12,14 @@ entity reg_file is
 		prop_delay		: Time := 15 ns
 	);
 	-- Signals
-	port(	
+	port(
 		clock			: in bit;
-		readnotwrite		: in bit;
+		readnotwrite	: in bit;
 		reg_number		: in register_index;
-		data_in 		: in dlx_word;  
+		data_in 		: in dlx_word;
 		data_out		: out dlx_word
 	);
-end entity reg_file; 
+end entity reg_file;
 
 
 ---------------------------------------------
@@ -43,7 +43,7 @@ begin
 		--	      registers we use for this process		--
 		----------------------------------------------------------
 		variable registers: reg_type;
-	begin 
+	begin
 		-- Start process
 		if (clock = '1') then
 			if (readnotwrite = '1') then
@@ -59,7 +59,7 @@ begin
 				-- Value from 'data_in' is copied into registers at --
 				-- register index --> 'reg_number'		    --
 				------------------------------------------------------
-				registers(bv_to_integer(reg_number)) := data_in; 
+				registers(bv_to_integer(reg_number)) := data_in;
 				------------------------------------------------------
 				-- NOTE: No prop_delay is applied because we don't  --
 				--	want to delay variable assignments. 	    --
@@ -67,4 +67,4 @@ begin
 			end if;
 		end if;
 	end process reg_file_process;
-end architecture behavior; 
+end architecture behavior;
