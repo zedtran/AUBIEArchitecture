@@ -138,7 +138,7 @@ begin -- structure of aubie
 
 	aubie_pc_mux: entity work.threeway_mux(behavior)
 		port map (
-            input_2 => mem_out,  -- Added for JMP and JZ Operations
+			input_2 =>  mem_out,  -- Added for JMP and JZ Operations
 			input_1 =>  addr_out,
 			input_0 => pcplusone_out,
 			which => pc_mux,

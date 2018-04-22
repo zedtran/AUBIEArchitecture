@@ -21,7 +21,7 @@ USE work.dlx_types.ALL;
 --  1001 = bitwise OR
 --  1010 = logical NOT of operand1 (ignore operand2)
 --  1011 = bitwise NOT of operand1 (ignore operand2)
---  1100-1111 = just output all zeroes
+--  1101-1111 = just output all zeroes
 ---------------------------------------------------------------------------------------------
 --  The unit returns the 32-bit result of the operation and a 4-bit error code. The meaning of
 --  the error code should be
@@ -214,7 +214,13 @@ begin
                           temp_result(i) := NOT operand1(i);
                       end loop;
                       result <= temp_result;
-                  when others => -- 1100 thru 1111 outputs all zeroes
+                  when "1100" => -- CHECK IF OPERAND1 is zero
+                      temp_result := logical_false;
+                      if (operand1 = x"00000000") then
+                          temp_result := logical_true;
+                      end if;
+                      result <= temp_result;
+                  when others => -- 1101 thru 1111 outputs all zeroes
                       result <= x"00000000";
               end case;
    end process alu_process;
