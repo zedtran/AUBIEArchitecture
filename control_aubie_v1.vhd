@@ -6,7 +6,7 @@ use work.dlx_types.all;
 
 entity aubie_controller is
     generic(
-        prop_delay    : Time := 5 ns; 
+        prop_delay    : Time := 5 ns;
         xt_prop_delay : Time := 100 ns -- Extended prop_delay for allowing other signals to propagate first
     ); -- Controller propagation delay
     port(
@@ -189,7 +189,7 @@ begin
                         -- Mem[Addr] --> Regs[IR[dest]]. PC --> PC+1.
                             regfilein_mux <= "01" after prop_delay; -- mux selector for memory out
                             memaddr_mux <= "01" after prop_delay; -- mux selector input_1 for address register output
-                            addr_mux <= '1' after prop_delay;
+                            --addr_mux <= '#' after prop_delay;
                             regfile_index <= destination after prop_delay;
                             regfile_readnotwrite <= '0' after prop_delay;
                             regfile_clk <= '1' after prop_delay;
@@ -197,12 +197,12 @@ begin
                             mem_readnotwrite <= '1' after prop_delay;
                             ir_clk <= '0' after prop_delay;
                             imm_clk <= '0' after prop_delay;
-                            addr_clk <= '1' after prop_delay;
+                            addr_clk <= '0' after prop_delay; -- Addr clk should retain its old value
                             op1_clk <= '0' after prop_delay;
                             op2_clk <= '0' after prop_delay;
                             result_clk <= '0' after prop_delay;
-                            pc_clk <= '1' after prop_delay;
-                            pc_mux <= "01" after prop_delay, "00" after xt_prop_delay;
+                            pc_clk <= '0' after prop_delay, '1' after xt_prop_delay;
+                            pc_mux <= "00" after xt_prop_delay;
                             -- NOTE: We don't want to increment PC until AFTER other values are propagated because we want the mux to read from the address register first.
 
                         elsif (opcode = x"31") then -- LDI
@@ -286,21 +286,23 @@ begin
                     when 13 => -- LDR (Step2): Copy contents of memory specified by Address register to destination register:
                     -- Mem[Addr] --> Regs[IR[dest]]. Increment PC --> PC+1.
 
-                        regfilein_mux <= "01" after prop_delay; -- This will allow us to read from Mem[Addr]
-                        memaddr_mux <= "00" after prop_delay;
-                        pc_mux <= "01" after prop_delay, "00" after xt_prop_delay;
+                        regfilein_mux <= "01" after prop_delay; -- mux selector for memory out
+                        memaddr_mux <= "01" after prop_delay; -- mux selector input_1 for address register output
+                        --addr_mux <= '#' after prop_delay;
                         regfile_index <= destination after prop_delay;
-                        regfile_readnotwrite <= '0' after prop_delay; -- Here we are performing a write to the register file
+                        regfile_readnotwrite <= '0' after prop_delay;
                         regfile_clk <= '1' after prop_delay;
                         mem_clk <= '1' after prop_delay;
                         mem_readnotwrite <= '1' after prop_delay;
                         ir_clk <= '0' after prop_delay;
                         imm_clk <= '0' after prop_delay;
-                        addr_clk <= '0' after prop_delay; -- Turn off clock so it will retain its last output signal
-                        pc_clk <= '1' after prop_delay;
+                        addr_clk <= '0' after prop_delay; -- Addr clk should retain its old value
                         op1_clk <= '0' after prop_delay;
                         op2_clk <= '0' after prop_delay;
                         result_clk <= '0' after prop_delay;
+                        pc_clk <= '0' after prop_delay, '1' after xt_prop_delay;
+                        pc_mux <= "00" after xt_prop_delay;
+                        -- NOTE: We don't want to increment PC until AFTER other values are propagated because we want the mux to read from the address register first.
 
                         state := 1;
                     when 14 => -- STOR (Step1): Copy contents of dest reg into Address Register:
