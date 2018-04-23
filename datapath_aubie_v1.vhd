@@ -433,7 +433,7 @@ begin  -- behavior
         -- This was initally data_memory(2) but I changed it to mem-address 6 so we can load R1 and R2 first
         data_memory(6) :=  "00000000000110000100010000000000"; -- ADDU R3,R1,R2
 
-        data_memory(100) := x"FFFFFFFF";
+        data_memory(100) := x"00000001";
         data_memory(101) := x"00000005";
         data_memory(102) := x"00000005";
         -- note that this code runs every time an input signal to memory changes,

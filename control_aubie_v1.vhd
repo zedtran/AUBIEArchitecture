@@ -7,7 +7,7 @@ use work.dlx_types.all;
 entity aubie_controller is
     generic(
         prop_delay    : Time := 5 ns;
-        xt_prop_delay : Time := 100 ns -- Extended prop_delay for allowing other signals to propagate first
+        xt_prop_delay : Time := 15 ns -- Extended prop_delay for allowing other signals to propagate first
     ); -- Controller propagation delay
     port(
       ir_control            :   in dlx_word;
