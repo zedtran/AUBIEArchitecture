@@ -363,7 +363,7 @@ begin
                             op1_clk <= '0' after prop_delay;
                             op2_clk <= '0' after prop_delay;
                             result_clk <= '0' after prop_delay;
-
+                        end if;
                         if (opcode = x"41") then -- JZ --> DO everything in the above condition +
                         -- copy register op1 to control: Regs[IR[op1]] --> Ctl
                             alu_func <= jz_op after xt_prop_delay;

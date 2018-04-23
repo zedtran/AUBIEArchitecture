@@ -3,13 +3,34 @@ Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 
 -- Loading package STANDARD
 -- Compiling package bv_arithmetic
 
-} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
 -- Loading package STANDARD
 -- Loading package bv_arithmetic
 -- Loading package dlx_types
--- Compiling entity reg_file_tb
--- Compiling architecture test of reg_file_tb
+-- Compiling entity aubie
+-- Compiling architecture struct of aubie
+-- Loading entity aubie_controller
+-- Loading entity memory
+-- Loading entity dlx_register
+-- Loading entity reg_file
+-- Loading entity ALU
+-- Loading entity mux
+-- Loading entity threeway_mux
+-- Loading entity pcplusone
+
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Compiling package dlx_types
+
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/control_aubie_v1.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/control_aubie_v1.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Loading package bv_arithmetic
+-- Loading package dlx_types
+-- Compiling entity aubie_controller
+-- Compiling architecture behavior of aubie_controller
 
 } {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015

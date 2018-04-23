@@ -14,7 +14,7 @@ entity reg_file is
 	-- Signals
 	port(
 		clock			: in bit;
-		readnotwrite	: in bit;
+		readnotwrite	        : in bit;
 		reg_number		: in register_index;
 		data_in 		: in dlx_word;
 		data_out		: out dlx_word

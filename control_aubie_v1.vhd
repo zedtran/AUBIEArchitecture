@@ -65,7 +65,7 @@ begin
                     -- Mem[PC] --> IR
                         memaddr_mux <= "00" after prop_delay; -- memory threeway_mux input_0 to read from PC
                         pc_mux	<= "01" after prop_delay; -- Initially, this will tell memory to output data_memory(0)
-                        regfile_clk	<= '0' after prop_delay;
+                        regfile_clk <= '0' after prop_delay;
                         mem_clk	<= '1' after prop_delay; -- High so it can output mem_out
                         mem_readnotwrite <= '1' after prop_delay; -- In state 1, we want to read from main memory and ignore data_in
                         ir_clk <= '1' after prop_delay; -- High so IR will be receiving signal from Memory[PC]
@@ -74,7 +74,7 @@ begin
                         pc_clk <= '1' after prop_delay; -- High so PC will output the current address it retains
                         op1_clk	<= '0' after prop_delay;
                         op2_clk	<= '0' after prop_delay;
-                        result_clk	<= '0' after prop_delay;
+                        result_clk <= '0' after prop_delay;
                         state := 2;
                     when 2 =>  -- figure out which instruction
                         if opcode(7 downto 4) = "0000" then -- ALU op

@@ -10,10 +10,57 @@ entity reg_file is
         data_in     :   in dlx_word;
         readnotwrite:   in bit;
         clock       :   in bit;
-	    data_out    :   out dlx_word;
+	data_out    :   out dlx_word;
         reg_number  :   in register_index
     );
 end entity reg_file;
+
+---------------------------------------------
+-- BEGIN Defining ARCHITECTURE "reg_file"  --
+---------------------------------------------
+architecture behavior of reg_file is
+		----------------------------------------------------------
+		-- 	Type Define (Act as 'storage' for our process)  --
+		-- reg_type: defines a data structure for		--
+		--	         an array of 32-bit words 		--
+		----------------------------------------------------------
+		type reg_type is array (0 to 31) of dlx_word;
+begin
+	reg_file_process: process(readnotwrite, clock, reg_number, data_in) is
+	----------------------------------------------------------------------
+	-- NOTE: Process accepts only input signals from our defined entity --
+	----------------------------------------------------------------------
+		----------------------------------------------------------
+		-- 	Variable (Act as 'storage' for our process)  	--
+		-- registers: implements reg_type and initializes       --
+		--	      registers we use for this process		--
+		----------------------------------------------------------
+		variable registers: reg_type;
+	begin
+		-- Start process
+		if (clock = '1') then
+			if (readnotwrite = '1') then
+				---------------------------------------------------------------
+				-- 	[Performing "READ" Operation (readnotwrite = '1')]   --
+				-- Here, we simply ignore 'data_in' and copy value in 	     --
+				-- registers at index --> reg_number to data_out port signal --
+				---------------------------------------------------------------
+				data_out <= registers(bv_to_integer(reg_number)) after prop_delay;
+			else
+				------------------------------------------------------
+				-- 	[Performing "WRITE" Operation]		    --
+				-- Value from 'data_in' is copied into registers at --
+				-- register index --> 'reg_number'		    --
+				------------------------------------------------------
+				registers(bv_to_integer(reg_number)) := data_in;
+				------------------------------------------------------
+				-- NOTE: No prop_delay is applied because we don't  --
+				--	want to delay variable assignments. 	    --
+				------------------------------------------------------
+			end if;
+		end if;
+	end process reg_file_process;
+end architecture behavior;
 
 
 -- entity alu (lab 3)
@@ -44,13 +91,198 @@ end entity alu;
 -- 1001 bitwise or
 -- 1010 logical not (op1)
 -- 1011 bitwise not (op1)
--- 1100-1111 output all zeros
+-- 1101-1111 output all zeros
 
 -- error code values
 -- 0000 = no error
 -- 0001 = overflow (too big positive)
 -- 0010 = underflow (too small neagative)
 -- 0011 = divide by zero
+
+architecture behavior of ALU is
+    -- Define any types here that will be used
+
+begin
+    alu_process: process(operand1, operand2, operation) is
+          -- Declare any local variables here
+          variable temp_result: dlx_word := x"00000000";
+          variable logical_true: dlx_word := x"00000001";
+          variable logical_false: dlx_word := x"00000000";
+          variable overflow_flag_set: boolean;
+          variable div_by_zero: boolean;
+          variable op1_logical_status: bit; -- 0 means false; 1 means true
+          variable op2_logical_status: bit; -- 0 means false; 1 means true
+
+          begin
+              error <= "0000"; -- Default value for port signal output error
+              case(operation) is
+                  when "0000" => -- UNSIGNED ADD
+                      bv_addu(operand1, operand2, temp_result, overflow_flag_set);
+                      if overflow_flag_set then
+                          error <= "0001";
+                      end if;
+                      result <= temp_result;
+                  when "0001" => -- UNSIGNED SUBTRACT
+                      bv_subu(operand1, operand2, temp_result, overflow_flag_set);
+                      if overflow_flag_set then
+                          error <= "0010";
+                          -- Unsigned subtract is only concerned with underflow
+                      end if;
+                      result <= temp_result;
+                  when "0010" => -- TWO'S COMPLEMENT ADD
+                      bv_add(operand1, operand2, temp_result, overflow_flag_set);
+                      if overflow_flag_set then
+                          -- IF (+A) + (+B) = -C
+                          if (operand1(31) = '0') AND (operand2(31) = '0') then
+                              if (temp_result(31) = '1') then
+                                  error <= "0001"; -- overflow occurred
+                              end if;
+                          -- (-A) + (-B) = +C
+                          elsif (operand1(31) = '1') AND (operand2(31) = '1') then
+                              if (temp_result(31) = '0') then
+                                  error <= "0010"; -- underflow occurred
+                              end if;
+                          end if;
+                      end if;
+                      result <= temp_result;
+                  when "0011" => -- TWO'S COMPLEMENT SUBTRACT
+                      bv_sub(operand1, operand2, temp_result, overflow_flag_set);
+                      if overflow_flag_set then
+                          -- IF (-A) - (+B) = +C
+                          if (operand1(31) = '1') AND (operand2(31) = '0') then
+                              if (temp_result(31) = '0') then
+                                  error <= "0010"; -- underflow occurred
+                              end if;
+                          -- IF (+A) - (-B) = -C
+                          elsif (operand1(31) = '0') AND (operand2(31) = '1') then
+                              if (temp_result(31) = '1') then
+                                  error <= "0001"; -- overflow occurred
+                              end if;
+                          end if;
+                      end if;
+                      result <= temp_result;
+                  when "0100" => -- TWO'S COMPLEMENT MULTIPLY - (2 underflow Conditions + 2 overflow conditions)
+                      bv_mult(operand1, operand2, temp_result, overflow_flag_set);
+                      if overflow_flag_set then
+                          if (operand1(31) = '1') AND (operand2(31) = '0') then -- (-A x +B) = +C
+                              error <= "0010"; -- underflow
+                          elsif (operand1(31) = '0') AND (operand2(31) = '1') then -- (+A x -B) = +C
+                              error <= "0010"; -- underflow
+                          else -- (+A x +B) = -C OR (-A x -B) = -C
+                              error <= "0001"; -- overflow
+                          end if;
+                      end if;
+                      result <= temp_result;
+                  when "0101" => -- TWO'S COMPLEMENT DIVIDE
+                  ----------------------------------------------------------------------------------------
+                  -- The only way a two's complement divide can underflow is if you divide the most
+                  -- negative value by -ve 1. Divide underflow occurs when the divisor is much smaller
+                  -- than the dividend. The result is almost zero. Test with 80000000 / FFFFFFFF
+                  -- (Quotient will be smaller than the dividend)
+                  -- NOTE: For grading purposes, this condition will not be tested but must be implemented
+                  -----------------------------------------------------------------------------------------
+                      bv_div(operand1, operand2, temp_result, div_by_zero, overflow_flag_set);
+                      if div_by_zero then
+                          error <= "0011"; --
+                      elsif overflow_flag_set then
+                          error <= "0010"; -- only an underflow can occur with divide (see note above)
+                      end if;
+                      result <= temp_result;
+                  when "0110" => -- PERFORM LOGICAL AND
+                  ------------------------------------------------------------------------
+                  -- For logical operations, anything resulting in a non-zero value is 1,
+                  -- for true. Anything resulting in all zeroes is assigned 0, false.
+                  -- Logical operation always results in true (1) or false (0).
+                  ------------------------------------------------------------------------
+                      op1_logical_status := '0'; -- Default logical status for operand1
+                      op2_logical_status := '0'; -- Default logical status for operand2
+                      -- check if operand1 is a non-zero value --
+                      for i in 31 downto 0 loop
+                          -- If non-zero value, operand1 is logical true;
+                          if (operand1(i) = '1') then
+                              op1_logical_status := '1';
+                              exit;
+                          end if;
+                      end loop;
+                      -- check if operand2 is a non-zero value
+                      for i in 31 downto 0 loop
+                          -- If non-zero value, operand2 is logical true;
+                          if (operand2(i) = '1') then
+                              op2_logical_status := '1';
+                              exit;
+                          end if;
+                      end loop;
+                      -- IF operand statuses result in --> '1' && '1' = '1'
+                      if ((op1_logical_status AND op2_logical_status) = '1') then
+                          result <= logical_true; -- The result is logical true x"00000001"
+                      else
+                          result <= logical_false; -- Else result is logical false  x"00000000"
+                      end if;
+                  when "0111" => -- PERFORM BITWISE AND
+                      for i in 31 downto 0 loop
+                          temp_result(i) := operand1(i) AND operand2(i);
+                      end loop;
+                      result <= temp_result;
+                  when "1000" => -- PERFORM LOGICAL OR
+                  ------------------------------------------------------------------------
+                  -- For logical operations, anything resulting in a non-zero value is 1,
+                  -- for true. Anything resulting in a zero is assigned 0, false.
+                  -- Logical operation always results in true (1) or false (0).
+                  ------------------------------------------------------------------------
+                      op1_logical_status := '0'; -- Default logical status for operand 1
+                      op2_logical_status := '0'; -- Default logical status for operand 2
+                      -- check if operand1 is a non-zero value --
+                      for i in 31 downto 0 loop
+                          -- If non-zero value, operand1 is logical true;
+                          if (operand1(i) = '1') then
+                              op1_logical_status := '1';
+                              exit;
+                          end if;
+                      end loop;
+                      -- check if operand2 is a non-zero value
+                      for i in 31 downto 0 loop
+                          -- If non-zero value, operand2 is logical true;
+                          if (operand2(i) = '1') then
+                              op2_logical_status := '1';
+                              exit;
+                          end if;
+                      end loop;
+                      -- IF operand statuses result in --> ('1'||'1' OR '1'||'0' OR '0'||'1' ) = '1'
+                      if ((op1_logical_status OR op2_logical_status) = '1') then
+                          result <= logical_true; -- The result is logical true x"00000001"
+                      else
+                          result <= logical_false; -- Else result is logical false  x"00000000"
+                      end if;
+                  when "1001" => -- PERFORM BITWISE OR
+                      for i in 31 downto 0 loop
+                          temp_result(i) := operand1(i) OR operand2(i);
+                      end loop;
+                      result <= temp_result;
+                  when "1010" => -- PERFORM LOGICAL NOT OF OPERAND1 (ignore operand2)
+                      temp_result := logical_true; -- Initially assigned to true (i.e. 32'h00000001)
+                      for i in 31 downto 0 loop
+                          if (NOT operand1(i) = '0') then -- i.e. IF operand1 is non-zero
+                              temp_result := logical_false; -- logical NOT resulted in false; Therefore, NOT(operand1) = false
+                              exit;
+                          end if;
+                      end loop;
+                      result <= temp_result;
+                  when "1011" => -- PERFORM BITWISE NOT OF OPERAND1 (ignore operand2)
+                      for i in 31 downto 0 loop
+                          temp_result(i) := NOT operand1(i);
+                      end loop;
+                      result <= temp_result;
+                  when "1100" => -- CHECK IF OPERAND1 is zero
+                      temp_result := logical_false;
+                      if (operand1 = x"00000000") then
+                          temp_result := logical_true;
+                      end if;
+                      result <= temp_result;
+                  when others => -- 1101 thru 1111 outputs all zeroes
+                      result <= x"00000000";
+              end case;
+   end process alu_process;
+end architecture behavior;
 
 -- entity dlx_register (lab 3)
 use work.dlx_types.all;
@@ -64,7 +296,23 @@ entity dlx_register is
     );
 end entity dlx_register;
 
+---------------------------------------------
+-- BEGIN Defining ARCHITECTURE "dlx_register"  --
+---------------------------------------------
+architecture behavior of dlx_register is
 
+begin
+	dlx_reg_process: process(in_val, clock) is
+	----------------------------------------------------------------------
+	-- NOTE: Process accepts only input signals from our defined entity --
+	----------------------------------------------------------------------
+	begin
+		-- Start process
+		if (clock = '1') then
+			out_val <= in_val after prop_delay;
+		end if;
+	end process dlx_reg_process;
+end architecture behavior;
 
 -- entity pcplusone
 use work.dlx_types.all;
