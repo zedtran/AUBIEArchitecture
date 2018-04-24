@@ -13,7 +13,7 @@ ALU Instructions are one dlx_word long (1 address) and have the following format
 
 | Opcode       	| Dest         	| Op1          	| Op2          	| Not Used   	|
 |--------------	|--------------	|--------------	|--------------	|------------	|
-| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 9 	| Bits 8 - 0 	|
 
 
 ### Store Instructions (STO)
@@ -23,7 +23,7 @@ Word 1 has the following format:
 
 | Opcode       	| Dest not used	| Op1          	| Op2 not used 	| Not Used   	|
 |--------------	|--------------	|--------------	|--------------	|------------	|
-| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 9 	| Bits 8 - 0 	|
 
 Word 2 has the following format:
 
@@ -38,13 +38,13 @@ Word 1 has the following format:
 
 | Opcode       	| Dest        	| Op1 not used 	| Op2 not used 	| Not Used   	|
 |--------------	|--------------	|--------------	|--------------	|------------	|
-| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 9 	| Bits 8 - 0 	|
 
 Word 2 has the following format:
 
 | Address or Immediate                                                       	|
 |---------------------------------------------------------------------------	|
-| Bits 31 - 0                                                                 |
+| Bits 31 - 0                                                                   |
 
 ### Register Indirect Load and Store (STOR & LDR)
 These do load and store using the contents of a register to specify the address. For STOR, the dest 
@@ -53,7 +53,7 @@ the address to load the contents from into the destination register:
 
 | Opcode       	| Dest         	| Op1          	| Op2 not used 	| Not Used   	|
 |--------------	|--------------	|--------------	|--------------	|------------	|
-| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 9 	| Bits 8 - 0 	|
 
 ### Jump Operations (JMP & JZ)
 Either unconditional (JMP) or condition (JZ) jump to an address given in the 2nd word of the instruction:
@@ -62,13 +62,13 @@ Word 1 has the following format:
 
 | Opcode       	| Dest not used	| Op1          	| Op2 not used 	| Not Used   	|
 |--------------	|--------------	|--------------	|--------------	|------------	|
-| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 19 	| Bits 8 - 0 	|
+| Bits 31 - 24 	| Bits 23 - 19 	| Bits 18 - 14 	| Bits 13 - 9 	| Bits 8 - 0 	|
 
 Word 2 has the following format:
 
 | Address                                                                    	|
 |---------------------------------------------------------------------------	|
-| Bits 31 - 0                                                                 |
+| Bits 31 - 0                                                                   |
 
 
 ### OPCODES
@@ -76,19 +76,19 @@ Word 2 has the following format:
 |-------------------------- |--------	|-----------------------------------------------------------------	|
 | ADDU   dest, op1, op2   	| 0x00   	| unsigned add        	                                            |
 | SUBU   dest, op1, op2   	| 0x01   	| unsigned subtract   	                                            |
-| ADD    dest, op1, op2  	  | 0x02   	| two's comp add      	                                            |
-| SUB    dest, op1, op2 	  | 0x03   	| two's comp subtract 	                                            |
-| MUL    dest, op1, op2  	  | 0x04   	| two's comp multiply 	                                            |
-| DIV    dest, op1, op2 	  | 0x05   	| two's comp divide   	                                            |
+| ADD    dest, op1, op2  	| 0x02   	| two's comp add      	                                            |
+| SUB    dest, op1, op2 	| 0x03   	| two's comp subtract 	                                            |
+| MUL    dest, op1, op2  	| 0x04   	| two's comp multiply 	                                            |
+| DIV    dest, op1, op2 	| 0x05   	| two's comp divide   	                                            |
 | ANDL   dest, op1, op2     | 0x06   	| logical AND         	                                            |
 | ANDB   dest, op1, op2     | 0x07   	| bitwise AND         	                                            |
-| ORL    dest, op1, op2  	  | 0x08   	| logical OR          	                                            |
+| ORL    dest, op1, op2  	| 0x08   	| logical OR          	                                            |
 | ORB    dest, op1, op2   	| 0x09   	| bitwise OR          	                                            |
 | NOTL   dest, op1, op2     | 0x0A   	| logical NOT(OP1)    	                                            |
 | NOTB   dest, op1, op2     | 0x0B   	| bitwise NOT(OP1)    	                                            |
 | NOOP                     	| 0x10   	| Do nothing           	                                            |
 | STO    op1, address       | 0x20   	| Put contents of reg op1 in memory specified by address word 2    	|
-| LD     dest, address      | 0x30   	| Load contents of addresss to register destination                	|
+| LD     dest, address      | 0x30   	| Load contents of address to register destination                	|
 | LDI    dest, #imm         | 0x31   	| Load value immediate into register destination                  	|
 | STOR   (dest), op1        | 0x22   	| Put contents of reg op1 in address given by contents of dest reg 	|
 | LDR    dest, (op1)        | 0x32   	| Load contents of address given by register op1 into register dest |
