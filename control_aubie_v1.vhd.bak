@@ -69,7 +69,7 @@ begin
                         regfile_clk <= '0' after prop_delay;
                         mem_clk	<= '1' after prop_delay; -- High so it can output mem_out
                         mem_readnotwrite <= '1' after prop_delay; -- In state 1, we want to read from main memory and ignore data_in
-                        ir_clk <= '1' after 20 ns; -- High so IR will be receiving signal from Memory[PC]
+                        ir_clk <= '1' after prop_delay; -- High so IR will be receiving signal from Memory[PC]
                         imm_clk <= '0' after prop_delay;
                         addr_clk <= '0' after prop_delay;
                         addr_mux <= '1' after prop_delay;
@@ -97,15 +97,6 @@ begin
                             next_state := 19;
                         else -- error: Bad opcode -- No need to do anything
                         end if;
-                        regfile_clk <= '0' after prop_delay;
-                        mem_clk <= '0' after prop_delay;
-                        ir_clk <= '0' after prop_delay;
-                        imm_clk <= '0' after prop_delay;
-                        addr_clk <= '0' after prop_delay;
-                        pc_clk <= '0' after prop_delay;
-                        op1_clk <= '0' after prop_delay;
-                        op2_clk <= '0' after prop_delay;
-                        result_clk <= '0' after prop_delay;
                         current_state := 2;
                     when 3 => -- ALU op (Step1):  load op1 register from the regfile
                         regfile_index <= operand1 after prop_delay; -- The register_index
@@ -171,7 +162,7 @@ begin
                         -- PC -> PC+1. Mem[PC] --> Addr
                             pc_clk <= '1' after prop_delay;
                             pc_mux <= "00" after prop_delay; -- pcplusone_out
-                            memaddr_mux <= "00" after prop_delay; -- mux select read from pcplusone_out
+                            memaddr_mux <= "01" after prop_delay; -- mux select read from Addr
                             addr_mux <= '1' after prop_delay; -- input_1 select of mem_out
                             regfile_clk <= '0' after prop_delay;
                             mem_clk <= '1' after prop_delay;

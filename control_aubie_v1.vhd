@@ -65,7 +65,7 @@ begin
                     -- Load the 32-bit memory word stored at the address in the PC to the Instruction Register:
                     -- Mem[PC] --> IR
                         memaddr_mux <= "00" after prop_delay; -- memory threeway_mux input_0 to read from PC
-                        pc_mux	<= "01" after prop_delay; -- Initially, this will tell memory to output data_memory(0)
+                        --pc_mux	<= "01" after prop_delay; -- Initially, this will tell memory to output data_memory(0)
                         regfile_clk <= '0' after prop_delay;
                         mem_clk	<= '1' after prop_delay; -- High so it can output mem_out
                         mem_readnotwrite <= '1' after prop_delay; -- In state 1, we want to read from main memory and ignore data_in
@@ -73,7 +73,7 @@ begin
                         imm_clk <= '0' after prop_delay;
                         addr_clk <= '0' after prop_delay;
                         addr_mux <= '1' after prop_delay;
-                        pc_clk <= '1' after prop_delay; -- High so PC will output the current address it retains
+                        pc_clk <= '0' after prop_delay; -- High so PC will output the current address it retains
                         op1_clk	<= '0' after prop_delay;
                         op2_clk	<= '0' after prop_delay;
                         result_clk <= '0' after prop_delay;
@@ -97,15 +97,6 @@ begin
                             next_state := 19;
                         else -- error: Bad opcode -- No need to do anything
                         end if;
-                        regfile_clk <= '0' after prop_delay;
-                        mem_clk <= '0' after prop_delay;
-                        ir_clk <= '0' after prop_delay;
-                        imm_clk <= '0' after prop_delay;
-                        addr_clk <= '0' after prop_delay;
-                        pc_clk <= '0' after prop_delay;
-                        op1_clk <= '0' after prop_delay;
-                        op2_clk <= '0' after prop_delay;
-                        result_clk <= '0' after prop_delay;
                         current_state := 2;
                     when 3 => -- ALU op (Step1):  load op1 register from the regfile
                         regfile_index <= operand1 after prop_delay; -- The register_index

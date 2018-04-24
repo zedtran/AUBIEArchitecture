@@ -425,10 +425,14 @@ begin  -- behavior
     -- some instructions
         data_memory(0) :=  X"30200000"; --LD R4, 0x100 -- [0011 0000 == x"30"] [0010 0 = x"4"][000 0000 0000 0000 0000]
         data_memory(1) :=  X"00000100"; -- address 0x100 for previous instruction
+
         data_memory(2) :=  X"30080000"; -- LD R1, 0x101
         data_memory(3) :=  X"00000101"; -- address 0x101 for previous instruction
+
+        
         data_memory(4) :=  X"30100000"; -- LD R2, 0x102
         data_memory(5) :=  X"00000102"; -- address 0x102 for previous instruction
+
         -- This was initally data_memory(2) but I changed it to mem-address 6 so we can load R1 and R2 first
         data_memory(6) :=  "00000000000110000100010000000000"; -- ADDU R3,R1,R2
 

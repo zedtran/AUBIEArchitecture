@@ -4,7 +4,6 @@ sim:/aubie/aubie_clock \
 sim:/aubie/aubie_ctl/behav/current_state \
 sim:/aubie/aubie_ctl/behav/next_state \
 sim:/aubie/ir_clk \
-sim:/aubie/ir_out \
 sim:/aubie/aubie_ctl/ir_control \
 sim:/aubie/aubie_ctl/behav/opcode \
 sim:/aubie/aubie_ctl/behav/destination \
@@ -28,6 +27,6 @@ sim:/aubie/regfile_clk \
 sim:/aubie/regfile_readnotwrite \
 sim:/aubie/regfile_in \
 sim:/aubie/regfile_out 
-force -freeze sim:/aubie/aubie_clock 1 0, 0 {100 ns} -r 200
+force -freeze sim:/aubie/aubie_clock 0 0, 1 {50 ns} -r 100
 
 run 2000 ns

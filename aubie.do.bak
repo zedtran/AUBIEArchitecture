@@ -4,7 +4,6 @@ sim:/aubie/aubie_clock \
 sim:/aubie/aubie_ctl/behav/current_state \
 sim:/aubie/aubie_ctl/behav/next_state \
 sim:/aubie/ir_clk \
-sim:/aubie/ir_out \
 sim:/aubie/aubie_ctl/ir_control \
 sim:/aubie/aubie_ctl/behav/opcode \
 sim:/aubie/aubie_ctl/behav/destination \
