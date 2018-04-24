@@ -30,4 +30,4 @@ sim:/aubie/regfile_in \
 sim:/aubie/regfile_out 
 force -freeze sim:/aubie/aubie_clock 0 0, 1 {50 ns} -r 100
 
-run 4000 ns
+run 9000 ns
