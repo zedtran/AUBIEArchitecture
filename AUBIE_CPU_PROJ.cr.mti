@@ -1,4 +1,9 @@
-C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd
+C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd
+Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
+-- Loading package STANDARD
+-- Compiling package bv_arithmetic
+
+} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
 -- Loading package STANDARD
 -- Loading package bv_arithmetic
@@ -13,11 +18,6 @@ Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 
 -- Loading entity mux
 -- Loading entity threeway_mux
 -- Loading entity pcplusone
-
-} {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd
-Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
--- Loading package STANDARD
--- Compiling package bv_arithmetic
 
 } {} {}} C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/datapath_aubie_v1.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/datapath_aubie_v1.vhd
 Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 2015
