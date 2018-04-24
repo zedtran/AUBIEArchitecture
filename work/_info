@@ -9,7 +9,7 @@ z2
 cModel Technology
 dC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU
 Ealu
-Z0 w1524605510
+Z0 w1524609643
 Z1 DPx4 work 13 bv_arithmetic 0 22 ;=2SeGQPb=ziI`4efIfkn0
 Z2 DPx4 work 9 dlx_types 0 22 e4`1bz2cZSZg<0^<ZWkI41
 Z3 dC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ
@@ -21,9 +21,9 @@ V=:KZ^Kb72z3MghCmSi8gP2
 !s100 ;aPiRJ3ToJkS=H>[G@1:g3
 Z6 OP;C;10.4a;61
 32
-Z7 !s110 1524605540
+Z7 !s110 1524610380
 !i10b 1
-Z8 !s108 1524605539.000000
+Z8 !s108 1524610380.000000
 Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/datapath_aubie_v1.vhd|
 Z10 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/datapath_aubie_v1.vhd|
 !i113 1
@@ -60,9 +60,9 @@ V4ESA;O^c<2dJh_zk:5Nng1
 !s100 ^BkcC0=[[Z=7dOM<k:9AG1
 R6
 32
-Z17 !s110 1524606023
+Z17 !s110 1524610397
 !i10b 1
-Z18 !s108 1524606023.000000
+Z18 !s108 1524610397.000000
 Z19 !s90 -reportprogress|300|-work|work|-2002|-explicit|-O0|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd|
 Z20 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/interconnect_aubie.vhd|
 !i113 1
@@ -107,9 +107,9 @@ VK9gQ90LY^>OMehiQcUJ6h2
 !s100 _OBQSkT_OB3AndPPC[aDo1
 R6
 32
-R7
+Z34 !s110 1524610381
 !i10b 1
-Z34 !s108 1524605540.000000
+R8
 Z35 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/control_aubie_v1.vhd|
 Z36 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/control_aubie_v1.vhd|
 !i113 1
@@ -125,9 +125,9 @@ V8?=<IafN]bkc5FQ6IIRlB0
 !s100 fS;jPBZ9nj;P8KNG@C0KL0
 R6
 32
-R7
-!i10b 1
 R34
+!i10b 1
+R8
 R35
 R36
 !i113 1
@@ -145,9 +145,9 @@ V;=2SeGQPb=ziI`4efIfkn0
 R6
 32
 b1
-Z37 !s110 1524605539
+Z37 !s110 1524610379
 !i10b 1
-!s108 1524605538.000000
+Z38 !s108 1524610379.000000
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd|
 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva.vhd|
 !i113 1
@@ -166,7 +166,7 @@ R6
 32
 R37
 !i10b 1
-R8
+R38
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd|
 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/bva-b.vhd|
 !i113 1
@@ -221,7 +221,7 @@ Ve4`1bz2cZSZg<0^<ZWkI41
 !s100 bCn<WzSGfCFS7agE3U@f01
 R6
 32
-R37
+R7
 !i10b 1
 R8
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/dlx-types.vhd|
@@ -256,8 +256,8 @@ R2
 R26
 l416
 L414
-VF?=nG<UM0DVe<V=ANm5d52
-!s100 J[R[;;0c1FAO3;k]S4YgY3
+V@EaeAjF8V9bFc:MUPJb501
+!s100 joCF=Q^mIS8THYMS@Nm]Q2
 R6
 32
 R7
@@ -384,48 +384,48 @@ R10
 R11
 R12
 Ereg_file_tb
-Z38 w1522112859
+Z39 w1522112859
 R2
 R1
 R3
-Z39 8C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd
-Z40 FC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd
+Z40 8C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd
+Z41 FC:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd
 l0
 L5
 VHU@`PN3no0ROJEaY[Io@Z1
 !s100 O4:eL=c;h[T^Z0@>Pe5RW2
 R6
 32
-Z41 !s110 1524493308
+Z42 !s110 1524493308
 !i10b 1
-Z42 !s108 1524493308.000000
-Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd|
-Z44 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd|
+Z43 !s108 1524493308.000000
+Z44 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd|
+Z45 !s107 C:/Modeltech_pe_edu_10.4a/projects/AUBIE_CPU_PROJ/reg_file_tb.vhd|
 !i113 1
 R11
 R12
 Atest
 R2
 R1
-Z45 DEx4 work 11 reg_file_tb 0 22 HU@`PN3no0ROJEaY[Io@Z1
+Z46 DEx4 work 11 reg_file_tb 0 22 HU@`PN3no0ROJEaY[Io@Z1
 l40
 L8
 VQ^Y6:Djz<_h_lnZl91A<U3
 !s100 `ficmMAH7oNEF=O6:@KoF2
 R6
 32
-R41
-!i10b 1
 R42
+!i10b 1
 R43
 R44
+R45
 !i113 1
 R11
 R12
 Abehave
 DPx4 work 9 dlx_types 0 22 @MWS?C@zLBViQibDEWe=J0
 R1
-R45
+R46
 l25
 L8
 VZ`47]BkJ6=KcaP]cEF6?]2
@@ -435,8 +435,8 @@ R6
 !s110 1521763486
 !i10b 1
 !s108 1521763486.000000
-R43
 R44
+R45
 !i113 1
 R11
 R12
