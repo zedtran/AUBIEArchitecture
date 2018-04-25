@@ -5,6 +5,8 @@ This is a custom implementation of a MIPS-based Architecture with a 32-bit datap
 
 ![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_datapath.jpg)
 
+![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_test_Screenshots/CompleteWaveT0_T6483.PNG)
+
 ## Instruction Set 
 The opcode for this architecture is always found in the high order 8 bits of an instruction word (bits 31-24). Instructions can be variable length (either one dlx_word long or two words long). In addition to the opcode, the first word may hold a number of register numbers for source and destination registers. The second word contains either a 32-bit immediate value for the load immediate (LDI) instruction or it holds an address for the store (STO), load (LD), jump (JMP), or jump-if-zero (JZ) instructions. 
 
