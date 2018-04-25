@@ -8,7 +8,7 @@ This is a custom implementation of a MIPS-based Architecture with a 32-bit datap
 ![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_test_Screenshots/CompleteWaveT0_T6483.PNG)
 
 ## Instruction Set 
-The opcode for this architecture is always found in the high order 8 bits of an instruction word (bits 31-24). Instructions can be variable length (either one dlx_word long or two words long). In addition to the opcode, the first word may hold a number of register numbers for source and destination registers. The second word contains either a 32-bit immediate value for the load immediate (LDI) instruction or it holds an address for the store (STO), load (LD), jump (JMP), or jump-if-zero (JZ) instructions. 
+The opcode for this architecture is always found in the high order 8 bits of an instruction word (bits 31-24). Instructions can be variable length (either one dlx_word long or two words long). In addition to the opcode, the first word may hold a number of register numbers for source and destination registers. The second word contains either a 32-bit immediate value for the load immediate (LDI) instruction or it holds an address for the store (STO), load (LD), jump (JMP), or jump-if-zero (JZ) instructions.
 
 ### ALU Instructions 
 ALU Instructions are one dlx_word long (1 address) and have the following format:
@@ -118,8 +118,107 @@ Once you become familiar with how to navigate the ModelSim GUI and its menus, yo
 <VSIM> do <ENTITY>.do
 ```
 <Entity>.do files are not auto-generated and simply execute on VSIM terminal commands. You can copy your "force" commands from the Transcript window and create a .do file of your own for ease of subsequent signal testing,
-or you may choose to manually select entity signals (add wave) to place in the "Wave - default" window and "force" signal outputs. Navigate [here](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/alu_test_Screenshots/ALU_OP_0_TEST.PNG) to see an example of how signals would appear in the Wave output window.
+or you may choose to manually select entity signals (add wave) to place in the "Wave - default" window and "force" signal outputs. Navigate [here](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/alu_test_Screenshots/ALU_OP_0_TEST.PNG) to see an example of how signals would appear in the Wave output window. 
+  
+The component Unit Under Test (UUT) is the entity 'aubie' in the file labeled [interconnect_aubie](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/interconnect_aubie.vhd). As noted by the convention above, a sample .do file used for running the simulation is [aubie.do](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie.do).
 
+It is up to the user to choose what signals they wish to appear in their simulation wave window and what order they appear on the list. The signals used in the sample simulation consists of more than what is needed for the purpose of showing the .do file syntax. The following script from the aubie.do file will run the simulation to completion for all instructions that were loaded into memory:
+
+```
+add wave -position insertpoint \
+sim:/aubie/aubie_clock \
+sim:/aubie/aubie_ctl/behav/current_state \
+sim:/aubie/aubie_ctl/behav/next_state \
+sim:/aubie/ir_clk \
+sim:/aubie/aubie_ctl/ir_control \
+sim:/aubie/aubie_ctl/behav/opcode \
+sim:/aubie/aubie_ctl/behav/destination \
+sim:/aubie/aubie_ctl/behav/operand1 \
+sim:/aubie/aubie_ctl/behav/operand2 \
+sim:/aubie/mem_clk \
+sim:/aubie/memaddr_mux \
+sim:/aubie/memaddr_in \
+sim:/aubie/mem_readnotwrite \
+sim:/aubie/mem_out \
+sim:/aubie/aubie_memory/mem_behav/data_memory \
+sim:/aubie/addr_clk \
+sim:/aubie/addr_in \
+sim:/aubie/addr_out \
+sim:/aubie/pc_clk \
+sim:/aubie/pc_mux \
+sim:/aubie/pc_in \
+sim:/aubie/pc_out \
+sim:/aubie/regfile_clk \
+sim:/aubie/aubie_regfile/reg_file_process/registers \
+sim:/aubie/regfile_index \
+sim:/aubie/regfile_readnotwrite \
+sim:/aubie/regfile_in \
+sim:/aubie/regfile_out 
+force -freeze sim:/aubie/aubie_clock 0 0, 1 {50 ns} -r 100
+
+run 6500 ns
+```
+  
+Sample instructions are have already been loaded into the memory unit and can be referenced in the [datapath file](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/datapath_aubie_v1.vhd). The following code segment shows the loaded instructions in the order they are executed:
+
+```
+data_memory(0) :=  X"30200000"; --LD R4, 0x100 = 256
+data_memory(1) :=  X"00000100"; -- address 0x100 for previous instruction
+-- R4 = Contents of Mem Addr x100 = x"5500FF00"
+
+data_memory(2) :=  X"30080000"; -- LD R1, 0x101 = 257
+data_memory(3) :=  X"00000101"; -- address 0x101 for previous instruction
+-- R1 = Contents of Mem Addd x101 = x"AA00FF00"
+
+data_memory(4) :=  X"30100000"; -- LD R2, 0x102 = 258
+data_memory(5) :=  X"00000102"; -- address 0x102 for previous instruction
+-- R2 = Contents of Mem Addr x102 = x"00000001"
+
+data_memory(6) :=  "00000000000110000100010000000000"; -- ADDU R3,R1 R2
+-- R3 = Contents of (R1 + R2) = x"AA00FF01"
+
+data_memory(7) :=  "00100000000000001100000000000000"; -- STO R3, 0x103
+data_memory(8) :=  x"00000103"; -- address 0x103 for previous instruction
+-- Mem Addr x"103" = data_memory(259) := contents of R3 = x"AA00FF01"
+
+data_memory(9) :=  "00110001000000000000000000000000"; -- LDI R0, 0x104
+data_memory(10) := x"00000104"; -- #Imm value 0x104 for previous instruction
+-- Contents of R0 = x"00000104"
+
+data_memory(11) := "00100010000000001100000000000000"; -- STOR (R0), R3
+-- Contents of Mem Addr specifed by R0 (x104 = 260) = Contents of R3 = x"AA00FF01"
+
+data_memory(12) := "00110010001010000000000000000000"; -- LDR R5, (R0)
+-- Contents of R5 = Contents specified by Mem Addr[Contents of R0] = x"AA00FF01"
+
+data_memory(13) := x"40000000"; -- JMP to 261 = x"105"
+data_memory(14) := x"00000105"; -- Address to jump to for previous instruction
+-- JMP to Mem Addr x"105" is an Add Operation --> ADDU R11, R1 R2 => Contents of R11 = x"AA00FF01"
+
+-- The following 3 lines are arbitrarily loaded value literals which do not represent instructions
+data_memory(256) := "01010101000000001111111100000000"; -- x"100" = 256
+data_memory(257) := "10101010000000001111111100000000"; -- x"101" = 257
+data_memory(258) := "00000000000000000000000000000001"; -- x"102" = 258
+
+-- We Jumped here from Addr 14 = x"0000000E"
+data_memory(261) :=  x"00584400"; -- ADDU R11,R1,R2
+
+data_memory(262) := x"4101C000"; -- JZ R7, 267 = x"10B" -- If R7 == 0, GOTO Addr 267
+data_memory(263) := x"0000010B"; -- Address to jump to for previous instruction
+-- JZ to Mem Addr x"10B" is an Add Operation --> ADDU R12, R1 R2 => Contents of R12 = x"AA00FF01"
+
+-- We jumped here from Addr 263 = x"00000107"
+data_memory(267) := x"00604400"; -- ADDU R12, R1 R2
+
+data_memory(268) := x"10000000"; -- NOOP
+
+```
+
+You can observe the register file values by evaluating the register file local values:
+
+![alt text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_test_Screenshots/RegisterFileValues.PNG)
+
+Some instructions also write back to memory and you can also see those changes in the memory unit local values as depicted their respective [screenshots](https://github.com/zedtran/AUBIE_CPU_Architecture/tree/master/aubie_test_Screenshots) in the aubie test screenshots directory.
 
 ## Built With
 
