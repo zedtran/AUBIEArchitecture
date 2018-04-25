@@ -449,7 +449,7 @@ begin  -- behavior
         -- Contents of R0 = x"00000104"
 
         data_memory(11) := "00100010000000001100000000000000"; -- STOR (R0), R3
-        -- Contents of Mem Addr specifed by R0 (x104) = Contents of R3 = x"AA00FF01"
+        -- Contents of Mem Addr specifed by R0 (x104 = 260) = Contents of R3 = x"AA00FF01"
         
         data_memory(12) := "00110010001010000000000000000000"; -- LDR R5, (R0)
         -- Contents of R5 = Contents specified by Mem Addr[Contents of R0] = x"AA00FF01"
@@ -458,25 +458,23 @@ begin  -- behavior
         data_memory(14) := x"00000105"; -- Address to jump to for previous instruction
         -- JMP to Mem Addr x"105" is an Add Operation --> ADDU R11, R1 R2 => Contents of R11 = x"AA00FF01"
 
-        data_memory(15) := x"4101C000"; -- JZ R7, 267 = x"10B" -- If R7 == 0, GOTO Addr 267
-        data_memory(16) := x"0000010B"; -- Address to jump to for previous instruction
-        -- JZ to Mem Addr x"10B" is an Add Operation --> ADDU R12, R1 R2 => Contents of R12 = x"AA00FF01"
-
-        data_memory(17) := x"10000000"; -- NOOP
-        
-
         -- note that this code runs every time an input signal to memory changes,
         -- so for testing, write to some other locations besides these
         data_memory(256) := "01010101000000001111111100000000"; -- x"100" = 256
         data_memory(257) := "10101010000000001111111100000000"; -- x"101" = 257
         data_memory(258) := "00000000000000000000000000000001"; -- x"102" = 258
         
-
-        -- We Jumped here from Addr 13 = x"0000000D"
+        -- We Jumped here from Addr 14 = x"0000000E"
         data_memory(261) :=  x"00584400"; -- ADDU R11,R1,R2
- 
-        -- We jumped here from Addr 15 = x"0000000F"
+        
+        data_memory(262) := x"4101C000"; -- JZ R7, 267 = x"10B" -- If R7 == 0, GOTO Addr 267
+        data_memory(263) := x"0000010B"; -- Address to jump to for previous instruction
+        -- JZ to Mem Addr x"10B" is an Add Operation --> ADDU R12, R1 R2 => Contents of R12 = x"AA00FF01"
+
+        -- We jumped here from Addr 263 = x"00000107"
         data_memory(267) := x"00604400"; -- ADDU R12, R1 R2
+        
+        data_memory(268) := x"10000000"; -- NOOP
 
 
         if clock = '1' then

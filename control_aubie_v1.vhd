@@ -7,7 +7,7 @@ use work.dlx_types.all;
 entity aubie_controller is
     generic(
         prop_delay    : Time := 5 ns;
-        xt_prop_delay : Time := 10 ns -- Extended prop_delay for allowing other signals to propagate first
+        xt_prop_delay : Time := 15 ns -- Extended prop_delay for allowing other signals to propagate first
     ); -- Controller propagation delay
     port(
       ir_control            :   in dlx_word;
@@ -226,8 +226,8 @@ begin
                             op1_clk <= '0' after prop_delay;
                             op2_clk <= '0' after prop_delay;
                             result_clk <= '0' after prop_delay;
-                            pc_clk <= '1' after prop_delay; -- Set clock to high
-                            pc_mux <= "00" after prop_delay; -- Increment PC (Note: Since we're not relying on a PC address, we can increment the PC at any time in this sub-state. We just have to make sure it's done at some point.)
+                            pc_clk <= '0' after prop_delay, '1' after xt_prop_delay;
+                            pc_mux <= "00" after xt_prop_delay; 
 
                         end if;
                         next_state := 1;
@@ -364,58 +364,39 @@ begin
                         next_state := 17;
                         current_state := 16;
                     when 17 => -- JMP or JZ (Step2):
-
-                        if (opcode = x"40") then -- JMP
                         -- Load memory specified by PC to Address register: Mem[PC] --> Addr
                         -- Same thing as State 7 except no need to increment since that was already done in State 16
-
-                            pc_clk <= '0' after prop_delay;
-                            memaddr_mux <= "00" after prop_delay; -- mux select read from pcplusone_out
-                            addr_mux <= '1' after prop_delay; -- input_1 select of mem_out
-                            regfile_clk <= '0' after prop_delay;
-                            mem_clk <= '1' after prop_delay;
-                            mem_readnotwrite <= '1' after prop_delay; -- Memory Read operation
-                            ir_clk <= '0' after prop_delay;
-                            imm_clk <= '0' after prop_delay;
-                            addr_clk <= '1' after prop_delay;
-                            op1_clk <= '0' after prop_delay;
-                            op2_clk <= '0' after prop_delay;
-                            result_clk <= '0' after prop_delay;
-                        end if;
-                        if (opcode = x"41") then -- JZ --> DO everything in the above condition +
-                        -- copy register op1 to control: Regs[IR[op1]] --> Ctl
-                            alu_func <= jz_op after xt_prop_delay;
-                            regfile_index <= operand1 after xt_prop_delay;
-                            regfile_readnotwrite <= '1' after xt_prop_delay;
-                            regfile_clk <= '1' after xt_prop_delay;
-                            mem_clk <= '0' after xt_prop_delay;
-                            ir_clk <= '0' after xt_prop_delay;
-                            imm_clk <= '0' after xt_prop_delay;
-                            addr_clk <= '0' after xt_prop_delay;
-                            pc_clk <= '0' after xt_prop_delay;
-                            op1_clk <= '1' after xt_prop_delay;
-                            op2_clk <= '1' after xt_prop_delay;
-                            result_clk <= '0' after xt_prop_delay;
-
-                            -- ??? Verify correctness for sub-state JZ (this) --
-                            -- The idea we are going with is that the alu_out signal is received by ctl
-                            -- This is validated by the interconnect port mapping (line 45)
-                            -- We are attempting to send logical_true/logical_false for op1 == 0 so we can retrieve
-                            -- the result in state 18. We'll check alu_out in state 18
-                        end if;
+                        pc_clk <= '0' after prop_delay;
+                        memaddr_mux <= "00" after prop_delay; -- mux select read from pcplusone_out
+                        addr_mux <= '1' after prop_delay; -- input_1 select of mem_out
+                        regfile_clk <= '0' after prop_delay;
+                        mem_clk <= '1' after prop_delay;
+                        mem_readnotwrite <= '1' after prop_delay; -- Memory Read operation
+                        ir_clk <= '0' after prop_delay;
+                        imm_clk <= '0' after prop_delay;
+                        addr_clk <= '1' after prop_delay;
+                        op1_clk <= '0' after prop_delay;
+                        op2_clk <= '0' after prop_delay;
+                        result_clk <= '0' after prop_delay;
                         next_state := 18;
+                        if (opcode = x"40") then -- JMP
+                            next_state := 18;
+                        else -- JZ Intermediate Step to Check if OP1 == 0
+                            next_state := 20;
+                        end if; 
                         current_state := 17;
                     when 18 => -- JMP or JZ (Step3):
                         if (opcode = x"40") then -- JMP
                         -- Load Addr to PC: Addr --> PC
                             pc_mux <= "01" after prop_delay;
                             pc_clk <= '1' after prop_delay;
-                        elsif (opcode = x"41") then-- JZ
+                        end if;
+                        if (opcode = x"41") then -- JZ
                         -- If Result == 0, copy Addr to PC: Addr --> PC, else increment PC --> PC+1
                             if (alu_out = logical_true) then
                                 pc_mux <= "01" after prop_delay;
                                 pc_clk <= '1' after prop_delay;
-                            elsif (alu_out = logical_false) then
+                            else
                                 pc_clk <= '1' after prop_delay;
                                 pc_mux <= "00" after prop_delay;
                             end if;
@@ -428,6 +409,28 @@ begin
 
                         next_state := 1;
                         current_state := 19;
+                    when 20 => -- JZ Intermediate Cycle
+                        -- copy register op1 to control: Regs[IR[op1]] --> Ctl
+                        alu_func <= jz_op after prop_delay;
+                        regfile_index <= operand1 after prop_delay;
+                        regfile_readnotwrite <= '1' after prop_delay;
+                        regfile_clk <= '1' after prop_delay;
+                        mem_clk <= '0' after prop_delay;
+                        ir_clk <= '0' after prop_delay;
+                        imm_clk <= '0' after prop_delay;
+                        addr_clk <= '0' after prop_delay;
+                        pc_clk <= '0' after prop_delay;
+                        op1_clk <= '1' after prop_delay;
+                        op2_clk <= '1' after prop_delay;
+                        result_clk <= '1' after prop_delay;
+
+                        -- ??? Verify correctness for sub-state JZ (this) --
+                        -- The idea we are going with is that the alu_out signal is received by ctl
+                        -- This is validated by the interconnect port mapping (line 45)
+                        -- We are attempting to send logical_true/logical_false for op1 == 0 so we can retrieve
+                        -- the result in state 18. We'll check alu_out in state 18
+                        current_state := 20;
+                        next_state := 18;
                     when others => null;
                 end case;
             elsif clock'event and clock = '0' then
