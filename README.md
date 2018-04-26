@@ -101,7 +101,7 @@ Word 2 has the following format:
 
 These instructions will get you a copy of the project up and running on your local machine for Simulation and testing purposes. The files in this repo contain a comprehensive [specification list](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/AUBIE%20CPU%20SPECIFICATION.pdf) of datapath elements and Cycle-by-Cycle [semantics](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/SEMANTICS%20%20OF%20AUBIE%20PROCESSOR%20INSTRUCTIONS.pdf) for each instruction. 
 
-### Prerequisites && Installation
+### Prerequisites & Installation
 
 In order to perform testing and evaluation of this code base, you will need to have an application that supports HDL designs and performs VHDL simulations. 
 This project was created by and tested with ModelSim PE Student Edition, developed by Mentor Graphics. It is recommended ModelSim PE Student Edition be dowloaded onto Windows based Operating Systems
@@ -158,7 +158,7 @@ force -freeze sim:/aubie/aubie_clock 0 0, 1 {50 ns} -r 100
 
 run 6500 ns
 ```
-### Sample Instructiions  
+### Sample Instructions  
 Sample Instructions have already been loaded into the memory unit and can be referenced in the [datapath file](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/datapath_aubie_v1.vhd). The following code segment shows the loaded instructions in the order they are executed:
 
 
