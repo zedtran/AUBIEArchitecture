@@ -158,61 +158,13 @@ force -freeze sim:/aubie/aubie_clock 0 0, 1 {50 ns} -r 100
 
 run 6500 ns
 ```
-  
-Sample instructions are have already been loaded into the memory unit and can be referenced in the [datapath file](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/datapath_aubie_v1.vhd). The following code segment shows the loaded instructions in the order they are executed:
+### Sample Instructiions  
+Sample Instructions have already been loaded into the memory unit and can be referenced in the [datapath file](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/datapath_aubie_v1.vhd). The following code segment shows the loaded instructions in the order they are executed:
 
-```
-data_memory(0) :=  X"30200000"; --LD R4, 0x100 = 256
-data_memory(1) :=  X"00000100"; -- address 0x100 for previous instruction
--- R4 = Contents of Mem Addr x100 = x"5500FF00"
 
-data_memory(2) :=  X"30080000"; -- LD R1, 0x101 = 257
-data_memory(3) :=  X"00000101"; -- address 0x101 for previous instruction
--- R1 = Contents of Mem Addd x101 = x"AA00FF00"
+![Alt Text](https://github.com/zedtran/AUBIE_CPU_Architecture/blob/master/aubie_test_Screenshots/DataPathInstructions.png)
 
-data_memory(4) :=  X"30100000"; -- LD R2, 0x102 = 258
-data_memory(5) :=  X"00000102"; -- address 0x102 for previous instruction
--- R2 = Contents of Mem Addr x102 = x"00000001"
-
-data_memory(6) :=  "00000000000110000100010000000000"; -- ADDU R3,R1 R2
--- R3 = Contents of (R1 + R2) = x"AA00FF01"
-
-data_memory(7) :=  "00100000000000001100000000000000"; -- STO R3, 0x103
-data_memory(8) :=  x"00000103"; -- address 0x103 for previous instruction
--- Mem Addr x"103" = data_memory(259) := contents of R3 = x"AA00FF01"
-
-data_memory(9) :=  "00110001000000000000000000000000"; -- LDI R0, 0x104
-data_memory(10) := x"00000104"; -- #Imm value 0x104 for previous instruction
--- Contents of R0 = x"00000104"
-
-data_memory(11) := "00100010000000001100000000000000"; -- STOR (R0), R3
--- Contents of Mem Addr specifed by R0 (x104 = 260) = Contents of R3 = x"AA00FF01"
-
-data_memory(12) := "00110010001010000000000000000000"; -- LDR R5, (R0)
--- Contents of R5 = Contents specified by Mem Addr[Contents of R0] = x"AA00FF01"
-
-data_memory(13) := x"40000000"; -- JMP to 261 = x"105"
-data_memory(14) := x"00000105"; -- Address to jump to for previous instruction
--- JMP to Mem Addr x"105" is an Add Operation --> ADDU R11, R1 R2 => Contents of R11 = x"AA00FF01"
-
--- The following 3 lines are arbitrarily loaded value literals which do not represent instructions
-data_memory(256) := "01010101000000001111111100000000"; -- x"100" = 256
-data_memory(257) := "10101010000000001111111100000000"; -- x"101" = 257
-data_memory(258) := "00000000000000000000000000000001"; -- x"102" = 258
-
--- We Jumped here from Addr 14 = x"0000000E"
-data_memory(261) :=  x"00584400"; -- ADDU R11,R1,R2
-
-data_memory(262) := x"4101C000"; -- JZ R7, 267 = x"10B" -- If R7 == 0, GOTO Addr 267
-data_memory(263) := x"0000010B"; -- Address to jump to for previous instruction
--- JZ to Mem Addr x"10B" is an Add Operation --> ADDU R12, R1 R2 => Contents of R12 = x"AA00FF01"
-
--- We jumped here from Addr 263 = x"00000107"
-data_memory(267) := x"00604400"; -- ADDU R12, R1 R2
-
-data_memory(268) := x"10000000"; -- NOOP
-
-```
+### Sample Results 
 
 You can observe the register file values by evaluating the register file local values:
 
@@ -220,7 +172,7 @@ You can observe the register file values by evaluating the register file local v
 
 Some instructions also write back to memory and you can also see those changes in the memory unit local values as depicted their respective [screenshots](https://github.com/zedtran/AUBIE_CPU_Architecture/tree/master/aubie_test_Screenshots) in the aubie test screenshots directory.
 
-## Built With
+### Built With
 
 * [ModelSim PE Student Edition](https://www.mentor.com/company/higher_ed/modelsim-student-edition) - The HDL Simulation GUI and Test Environment
 * [Atom.io](https://atom.io) - Text Editor
